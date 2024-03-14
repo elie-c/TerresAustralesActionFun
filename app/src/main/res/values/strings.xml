@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Terres Asutrales Action Fun</string>
+    <string name="help_main">Choisis ton mode de jeu ci-desous</string>
+    <string name="button_solo">Defi seul</string>
+    <string name="button_training">Mode etrainement\n</string>
+    <string name="button_multi">Defi multijoueur\n</string>
+</resources>
