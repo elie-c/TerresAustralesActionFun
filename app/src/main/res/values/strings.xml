@@ -4,4 +4,13 @@
     <string name="button_solo">Defi seul</string>
     <string name="button_training">Mode etrainement\n</string>
     <string name="button_multi">Defi multijoueur\n</string>
+    <string name="title_activity_trainining">TraininingActivity</string>
+    <string name="help_training">Choisis ton mini-jeu ci-dessous\n</string>
+    <string name="title_game1">Quizz historique\n</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="toast_comming_soon">Bientôt disponible</string>
+    <string name="title_activity_game1">Game1Activity</string>
+    <string name="dialog_rules_game1">Dans ce jeu tu vas devoir donner la bonne date pour un événement historique</string>
+    <string name="button_go">C\'est parti !</string>
+    <string name="button_validate">Valider</string>
 </resources>
