@@ -13,4 +13,6 @@
     <string name="dialog_rules_game1">Dans ce jeu tu vas devoir donner la bonne date pour un événement historique</string>
     <string name="button_go">C\'est parti !</string>
     <string name="button_validate">Valider</string>
+    <string name="title_wait">Attend\n</string>
+    <string name="dialog_wait_question">La prochaine question arrive très bientôt, soit prêt</string>
 </resources>
