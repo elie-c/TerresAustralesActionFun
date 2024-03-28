@@ -17,5 +17,10 @@ class TraininingActivity : ComponentActivity() {
         startActivity(intent)
     }
 
+    fun go_game2(view: View) {
+        val intent = Intent(this, Game2Activity::class.java)
+        startActivity(intent)
+    }
+
 
 }

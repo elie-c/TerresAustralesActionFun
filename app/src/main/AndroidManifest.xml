@@ -13,6 +13,11 @@
         android:theme="@style/Theme.TerresAsutralesActionFun"
         tools:targetApi="31">
         <activity
+            android:name=".Game2Activity"
+            android:exported="false"
+            android:label="@string/title_activity_game2"
+            android:theme="@style/Theme.TerresAsutralesActionFun" />
+        <activity
             android:name=".Game1Activity"
             android:exported="false"
             android:label="@string/title_activity_game1"

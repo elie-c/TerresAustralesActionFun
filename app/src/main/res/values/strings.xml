@@ -20,4 +20,6 @@
     <string name="dialog_end_question_game">Le jeu est terminé. J\'espère que c\'était fun et que tu as appris des choses sur l\'histoire des TAAF. Prêt à passer au jeu suivant ?</string>
     <string name="title_end_game">Fin du jeu</string>
     <string name="toast_timeout">Trop tard !</string>
+    <string name="title_game2">Montée des couleurs</string>
+    <string name="title_activity_game2">Game2Activity</string>
 </resources>
