@@ -15,4 +15,9 @@
     <string name="button_validate">Valider</string>
     <string name="title_wait">Attend\n</string>
     <string name="dialog_wait_question">La prochaine question arrive très bientôt, soit prêt</string>
+    <string name="dialog_good_answer_wait">Tu as trouvé la bonne réponse ! La prochaine question arrive très bientôt, soit prêt</string>
+    <string name="dialog_bad_answer_wait">Tu n\'as pas trouvé la bonne réponse. La prochaine question arrive très bientôt, soit prêt</string>
+    <string name="dialog_end_question_game">Le jeu est terminé. J\'espère que c\'était fun et que tu as appris des choses sur l\'histoire des TAAF. Prêt à passer au jeu suivant ?</string>
+    <string name="title_end_game">Fin du jeu</string>
+    <string name="toast_timeout">Trop tard !</string>
 </resources>

@@ -1,5 +1,6 @@
 package net.castang.esir.progm.terresasutralesactionfun
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.NumberPicker
@@ -9,20 +10,27 @@ import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.json.JSONArray
+import org.w3c.dom.Text
 import java.util.Timer
 import java.util.TimerTask
 import kotlin.random.Random
 
 
+
 class Game1Activity : ComponentActivity() {
     //variables
     var answer = 0
+    var score = 0
+    var message = R.string.dialog_wait_question //Using in function valdateDate()
     lateinit var blockingDialog: AlertDialog
+    var questionAnswered = false //Used for detected timeout exceed for a question
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game1)
+
+        findViewById<TextView>(R.id.textViewScore).text = "Score : $score"
 
         //Create blocking dialog for later
         blockingDialog =
@@ -63,13 +71,18 @@ class Game1Activity : ComponentActivity() {
         val year =
             (number_1.toString() + number_2.toString() + number_3.toString() + number_4.toString()).toInt()
         if (year == answer) {
-            Toast.makeText(this, "Bravo", Toast.LENGTH_LONG).show()
+            message = R.string.dialog_good_answer_wait
+            //Change and refresh score
+            score ++
+            findViewById<TextView>(R.id.textViewScore).text = "Score : $score"
         } else {
-            Toast.makeText(this, "T nul", Toast.LENGTH_LONG).show()
+            message = R.string.dialog_bad_answer_wait
         }
         //Block user so he have to wait for timer end
+        blockingDialog.setMessage(resources.getString(message));
         blockingDialog.show()
         blockingDialog.setCancelable(false)
+        questionAnswered = true
     }
 
     fun showQuestion() {
@@ -98,55 +111,53 @@ class Game1Activity : ComponentActivity() {
 
     fun gameProcess() {
         val numberOfQuestion = 5 //Can be change later
-        val timePerQuestion = 10 //Can be change later
-        val score = 0
+        val timePerQuestion : Long = 10 //Can be change later
         var i = 0
         //show first question
         showQuestion()
         //Wait timer
         val timer = Timer()
+        //Function timer, called bellow
         val task = object : TimerTask() {
             override fun run() {
                 i++
-                println("Exécution de la fonction fct - Compteur: $i")
                 if (i >= numberOfQuestion) {
+                    //If there is no questions left, END GAME
                     timer.cancel()
-                    println("Arrêt du minuteur")
+                    //Show end of the game to user
+                    blockingDialog.dismiss()
+                    runOnUiThread {
+                        MaterialAlertDialogBuilder(this@Game1Activity)
+                            .setTitle(resources.getString(R.string.title_end_game))
+                            .setMessage(resources.getString(R.string.dialog_end_question_game))
+                            .setNeutralButton(resources.getString(R.string.button_go)) { dialog, which ->
+                                //Go to next game
+                                val intent = Intent(this@Game1Activity, TraininingActivity::class.java)
+                                startActivity(intent)
+                            }
+                            .show()
+                    }
+                }else{
+                    //Else, if there is at least one question remaining
+                    if ((questionAnswered)||(i==1)){
+                        //If user answered the last question
+                        blockingDialog.dismiss()
+                    }else{
+                        //If user hasn't answered
+                        message = R.string.dialog_bad_answer_wait
+                        runOnUiThread{
+                            Toast.makeText(this@Game1Activity,R.string.toast_timeout,Toast.LENGTH_SHORT).show()
+
+                        }
+                        Thread.sleep(1000) //Wait for 1 s
+                    }
+                    questionAnswered = false; //Reinitialization before next question
+                    showQuestion()
                 }
-                // Appeler la fonction fct ici
-                blockingDialog.dismiss()
-                showQuestion()
             }
         }
-
-        // Démarrer le minuteur avec une période de 10 secondes
-        timer.schedule(task, 0L, 10000L)
-
-    }
-}
-    /*
-        //for (i in 1..numberOfQuestion){
-
-
-            //show first question
-            showQuestion()
-            //Wait timer
-            var handler = Handler()
-            val r = Runnable {
-                //what ever you do here will be done after 3 seconds delay.
-                //If timer exceed go to next question
-                blockingDialog.dismiss()
-                Log.d("INDICE",i.toString())
-            }
-            if (i++ < 5) {
-                handler.postDelayed(r, 5000);
-            }
-            //If timer exceed go to next question
-            //blockingDialog.dismiss()
-        //}
-        //At the end of the loop show message
-
+        // Start timer
+        timer.schedule(task, 0L, timePerQuestion*1000)
 
     }
 }
-*/
