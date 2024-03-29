@@ -10,4 +10,10 @@
 
     <color name="app_color">#8CDFD7</color>
 
+    <color name="material_dynamic_neutral10">#FF5722</color>
+    <color name="material_dynamic_neutral_variant10">#FFAB91</color>
+    <color name="design_default_color_secondary">#03A9F4</color>
+    <color name="design_default_color_secondary_variant">#81D4FA</color>
+=
+
 </resources>
