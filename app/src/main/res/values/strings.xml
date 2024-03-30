@@ -22,4 +22,6 @@
     <string name="toast_timeout">Trop tard !</string>
     <string name="title_game2">Montée des couleurs</string>
     <string name="title_activity_game2">Game2Activity</string>
+    <string name="dialog_rules_game2">Aujourd\'hui c\'est toi qui est chargé de monter les couelurs. Appuie sur l\'ecran pour monter le drapeau dès que tu entend la marseillaise</string>
+    <string name="dialog_end_game2">Le jeu est fini. Tu as mis %1$s millisecondes pour monter ce drapeau. Clique sur le bouton pour passer au jeu suivant.</string>
 </resources>
