@@ -22,7 +22,9 @@ class TraininingActivity : ComponentActivity() {
         startActivity(intent)
     }
 
-    fun go_game3(view: View) {}
+    fun go_game3(view: View) {
+        val intent = Intent(this, Game3Activity::class.java)
+        startActivity(intent)}
 
 
 }
