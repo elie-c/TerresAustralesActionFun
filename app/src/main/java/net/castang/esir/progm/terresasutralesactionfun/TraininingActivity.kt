@@ -22,5 +22,7 @@ class TraininingActivity : ComponentActivity() {
         startActivity(intent)
     }
 
+    fun go_game3(view: View) {}
+
 
 }
