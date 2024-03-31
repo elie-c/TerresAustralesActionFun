@@ -12,8 +12,10 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="30">?attr/colorPrimaryVariant</item> <!-- Changed targetApi to 30 -->
+        <item name="android:statusBarColor" tools:targetApi="30">?attr/colorPrimaryVariant
+        </item> <!-- Changed targetApi to 30 -->
         <!-- For text input fields -->
-        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item> <!-- Changed the style reference to reflect Material3 -->
+        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox
+        </item> <!-- Changed the style reference to reflect Material3 -->
     </style>
 </resources>
