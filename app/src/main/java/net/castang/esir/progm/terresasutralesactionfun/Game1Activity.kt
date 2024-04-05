@@ -132,8 +132,8 @@ class Game1Activity : ComponentActivity() {
                             .setMessage(resources.getString(R.string.dialog_end_question_game))
                             .setNeutralButton(resources.getString(R.string.button_go)) { dialog, which ->
                                 //Go to next game
-                                val intent = Intent(this@Game1Activity, TraininingActivity::class.java)
-                                startActivity(intent)
+                                setResult(RESULT_OK, Intent().putExtra("score", score))
+                                finish()
                             }
                             .show()
                     }

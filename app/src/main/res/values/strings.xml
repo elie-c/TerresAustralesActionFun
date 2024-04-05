@@ -28,4 +28,7 @@
     <string name="title_activity_game3">Game3Activity</string>
     <string name="dialog_rules_game3">C\'est l\'opération base étoilée. Celà veut dire qu\'il faut éviter toutes sources lumineuses sur la base, sinon les jeunes oiseux risquent de s\'échouer. Tu ne voudrais pas avoir la mort d\'un bébé pétrel sur la conscience ? Alors tu as 3 secondes pour mettre ton téléphone le plus possible dans l\'obscurité !</string>
     <string name="dialog_end_game3">Le jeu est fini. Tu as réussi à mettre ton téléphone dans une obscurité de %1$s lux. Clique sur le bouton pour passer au jeu suivant.</string>
+    <string name="title_activity_solo">SoloActivity</string>
+    <string name="dialog_end_solo">Le mode solo est fini. Tu as un score total de %1$s points. Reviens vite!</string>
+    <string name="button_seeyou">A bientôt !</string>
 </resources>
