@@ -31,4 +31,9 @@
     <string name="title_activity_solo">SoloActivity</string>
     <string name="dialog_end_solo">Le mode solo est fini. Tu as un score total de %1$s points. Reviens vite!</string>
     <string name="button_seeyou">A bientôt !</string>
+    <string name="title_activity_multi">MultiActivity</string>
+    <string name="button_discover">Decouvrir les téléphones disponibles</string>
+    <string name="button_stopDiscover">Arreter la découverte</string>
+    <string name="button_makeMeDiscoverable">Rend moi découvrable par les autres</string>
+    <string name="title_listDevices">Liste des appareils disponibles\n</string>
 </resources>

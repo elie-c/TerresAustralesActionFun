@@ -15,7 +15,8 @@ class MainActivity: ComponentActivity() {
     }
 
     fun go_multi(view: View) {
-        Toast.makeText(this, getString(R.string.toast_comming_soon),Toast.LENGTH_LONG).show()
+        val intent = Intent(this, MultiActivity::class.java)
+        startActivity(intent)
     }
     fun go_training(view: View) {
         val intent = Intent(this, TraininingActivity::class.java)

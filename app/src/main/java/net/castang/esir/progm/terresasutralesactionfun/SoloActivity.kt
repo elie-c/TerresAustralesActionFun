@@ -42,7 +42,6 @@ class SoloActivity : ComponentActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             val score = data?.getIntExtra("score", 0)
-            Log.d("TEST", score.toString())
             if (score != null) {
                 scoresList.add(score)
             }
@@ -56,7 +55,6 @@ class SoloActivity : ComponentActivity() {
     private fun endsSoloMode() {
         //End of the games
         val scoreTotal = scoresList.sum()
-        Log.d("TEST",scoresList.toString())
         runOnUiThread(){
             MaterialAlertDialogBuilder(this@SoloActivity)
                 .setCancelable(false)
