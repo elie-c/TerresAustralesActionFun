@@ -1,6 +1,7 @@
 package net.castang.esir.progm.terresasutralesactionfun
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -68,6 +69,10 @@ class SoloActivity : ComponentActivity() {
                 }
                 .show()
         }
+        val mediaPlayer = MediaPlayer.create(this, R.raw.music_end_solo)
+        mediaPlayer.start()
+
+
 
     }
 
