@@ -36,4 +36,5 @@
     <string name="button_stopDiscover">Arreter la découverte</string>
     <string name="button_makeMeDiscoverable">Rend moi découvrable par les autres</string>
     <string name="title_listDevices">Liste des appareils disponibles\n</string>
+    <string name="toast_connection_error">Connexion impossible\n</string>
 </resources>

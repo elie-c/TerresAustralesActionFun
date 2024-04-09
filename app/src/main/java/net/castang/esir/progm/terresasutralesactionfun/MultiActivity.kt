@@ -13,6 +13,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -37,6 +38,8 @@ class MultiActivity : ComponentActivity() {
 
     private var MY_UUID: UUID = UUID.fromString("d52a4216-0acc-43d7-ba00-d3ffdeecc59b") //TODO chnage this
     private var NAME = "TAAF" //TODO change this
+    private val REQUEST_CODE = 1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +48,10 @@ class MultiActivity : ComponentActivity() {
         //----------------- BLUETOOTH ---------------------
         val bluetoothManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
         bluetoothAdapter = bluetoothManager.getAdapter()
-        val REQUEST_CODE_BLUETOOTH_CONNECT = 1
-
         //Check permission
         if (bluetoothAdapter?.isEnabled == false) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(enableBtIntent,REQUEST_CODE)
             if (ActivityCompat.checkSelfPermission(
                     this,
                     Manifest.permission.BLUETOOTH_CONNECT
@@ -57,7 +59,7 @@ class MultiActivity : ComponentActivity() {
             ) {
                 requestPermissions(
                     arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
-                    REQUEST_CODE_BLUETOOTH_CONNECT
+                    REQUEST_CODE
                 )
                 return
             }
@@ -67,12 +69,33 @@ class MultiActivity : ComponentActivity() {
     @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
+        //____________________________ BUTTON ONCLICK LISTENERS __________________
         //DISCOVERING
         val bouttonDecouverte: Button = findViewById(R.id.button_start_d)
         bouttonDecouverte.setOnClickListener {
+            //Check discover permission first
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        REQUEST_CODE
+                    )
+                    return@setOnClickListener
+                }
+            }else {
+                if (checkSelfPermission(Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.BLUETOOTH_SCAN),
+                        REQUEST_CODE
+                    )
+                    return@setOnClickListener
+                }
+            }
             arrayToShow = arrayOf()
             arrayUUID = arrayOf()
             arrayNAME = arrayOf()
+            val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
+            registerReceiver(receiver, filter)
             bluetoothAdapter.startDiscovery()
         }
         //STOP DISCOVERING
@@ -82,8 +105,11 @@ class MultiActivity : ComponentActivity() {
         }
 
         //CONNECTION
-        val boutonFaisMoiDecouvrable: Button = findViewById(R.id.button_make_d)
-        boutonFaisMoiDecouvrable.setOnClickListener {
+        val buttonMakeMeDiscoverable: Button = findViewById(R.id.button_make_d)
+        buttonMakeMeDiscoverable.setOnClickListener {
+            val listView = findViewById<ListView>(R.id.listView)
+            val emptyAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1)
+            listView.adapter = emptyAdapter
             val requestCode = 1;
             val discoverableIntent: Intent = Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE).apply {
                 putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300)
@@ -94,38 +120,38 @@ class MultiActivity : ComponentActivity() {
         }
     }
 
-    // ----------- BLUETOOTH CLIENT -----------------
+    // ----------- BLUETOOTH CLIENT - 1-----------------
     private val receiver = object : BroadcastReceiver() {
         @SuppressLint("MissingPermission")
         override fun onReceive(context: Context, intent: Intent) {
             val action: String? = intent.action
             when(action) {
                 BluetoothDevice.ACTION_FOUND -> {
-                    // Discovery has found a device. Get the BluetoothDevice
-                    // object and its info from the Intent.
                     val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                     val deviceName = device?.name
                     val deviceHardwareAddress = device?.address // MAC address
                     Log.d("BT",deviceName.toString()+" "+deviceHardwareAddress.toString())
-                    //arrayUUID += deviceUUID.toString()
                     arrayNAME += deviceHardwareAddress.toString()
                     arrayToShow += deviceName.toString()+"\n"+deviceHardwareAddress.toString()
-                    //Affichage
+                    //Show device
                     val listeView : ListView = findViewById(R.id.listView)
                     val adapter = ArrayAdapter(baseContext, android.R.layout.simple_list_item_1, arrayToShow)
                     listeView.adapter = adapter
-                    //Choix du device
+                    //Device onClickListener
                     listeView.setOnItemClickListener { parent, view, position, id ->
                         //MY_UUID = arrayUUID.get(id.toInt())
                         val nameBT = arrayNAME.get(id.toInt())
+                        bluetoothAdapter.cancelDiscovery()
                         Toast.makeText(baseContext, "Connexion à "+nameBT, Toast.LENGTH_SHORT).show()
                         val threadConnectionBT = ConnectThread(bluetoothAdapter.getRemoteDevice(nameBT))
-                        threadConnectionBT.start()
+                        threadConnectionBT.start() //Go to Bluetooht Client 2
                     }
                 }
             }
         }
     }
+
+    //----------------------- BLUETOOTH CLIENT - 2 ------------------------
     @SuppressLint("MissingPermission")
     private inner class ConnectThread(device: BluetoothDevice) : Thread() {
         private val mmSocket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE) {
@@ -134,19 +160,28 @@ class MultiActivity : ComponentActivity() {
         public override fun run() {
             // Cancel discovery because it otherwise slows down the connection.
             bluetoothAdapter?.cancelDiscovery()
-            mmSocket?.let { socket ->
-                // Connect to the remote device through the socket. This call blocks
-                // until it succeeds or throws an exception.
-                socket.connect()
-                // The connection attempt succeeded. Perform work associated with
-                // the connection in a separate thread.
-                manageMyConnectedSocket(socket)
+            try {
+                mmSocket?.let { socket ->
+                    // Connect to the remote device through the socket. This call blocks
+                    // until it succeeds or throws an exception.
+                    socket.connect()
+                    // The connection attempt succeeded. Perform work associated with
+                    // the connection in a separate thread.
+                    manageMyConnectedSocket(socket) //Go to bluetooth client 3
+                }
+            }catch (e: IOException){
+                runOnUiThread(){
+                    Toast.makeText(this@MultiActivity,R.string.toast_connection_error,Toast.LENGTH_SHORT).show()
+                }
             }
         }
-        private fun manageMyConnectedSocket(socket: BluetoothSocket) {
 
+        //-------------- BLUETOOTH CLIENT - 3 ------------------------
+        private fun manageMyConnectedSocket(socket: BluetoothSocket) {
+            //TODO show user a message of connexion succesfull
         }
 
+        // --------------- OTHERS ---------------------------
         // Closes the client socket and causes the thread to finish.
         fun cancel() {
             try {
@@ -182,8 +217,9 @@ class MultiActivity : ComponentActivity() {
             }
         }
         private fun manageMyConnectedSocket(it: BluetoothSocket) {
-            //TODO
+            //TODO start games
         }
+
         // Closes the connect socket and causes the thread to finish.
         fun cancel() {
             try {
@@ -194,7 +230,7 @@ class MultiActivity : ComponentActivity() {
         }
     }
 
-
+    //------------------------ GAMES FUNCTIONS ----------------------------
     private fun startGames(){
         //--------------------------- GAMES -------------------
         //Pickup 3 games
