@@ -39,6 +39,7 @@
                     android:id="@+id/imageView3"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/game1"/>
 
                 <LinearLayout
@@ -74,6 +75,8 @@
                     android:id="@+id/imageView4"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:layout_marginTop="20dp"
+
                     android:src="@drawable/game2"/>
 
                 <LinearLayout
@@ -109,6 +112,7 @@
                     android:id="@+id/imageView5"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/game3"/>
 
                 <LinearLayout
