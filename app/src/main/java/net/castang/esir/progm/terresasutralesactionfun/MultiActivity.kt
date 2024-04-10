@@ -292,7 +292,7 @@ class MultiActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         // Don't forget to unregister the ACTION_FOUND receiver.
-        unregisterReceiver(receiver)
+            unregisterReceiver(receiver)
     }
 }
 

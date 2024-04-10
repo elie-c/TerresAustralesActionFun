@@ -24,7 +24,12 @@ class TraininingActivity : ComponentActivity() {
 
     fun go_game3(view: View) {
         val intent = Intent(this, Game3Activity::class.java)
-        startActivity(intent)}
+        startActivity(intent)
+    }
 
+    fun go_game4(view: View) {
+        val intent = Intent(this, Game4Activity::class.java)
+        startActivity(intent)
+    }
 
 }

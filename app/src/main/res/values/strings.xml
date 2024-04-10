@@ -37,4 +37,8 @@
     <string name="button_makeMeDiscoverable">Rend moi découvrable par les autres</string>
     <string name="title_listDevices">Liste des appareils disponibles\n</string>
     <string name="toast_connection_error">Connexion impossible\n</string>
+    <string name="title_game4">Chasse et pétrel</string>
+    <string name="title_activity_game4">Game4Activity</string>
+    <string name="dialog_end_game4">Le jeu est fini. Tu as obtenu un score de %1$s. Clique sur le bouton pour passer au jeu suivant.</string>
+    <string name="dialog_rules_game4">Tu es agent en charge de la gestion des mamifères introduits. Tu vas devoir tuer les méchants chats mangeur d\'oiseaux. Fais attention à ne pas toucher un oiseau, sinon tu perd des points (ils sont protégés eux !).</string>
 </resources>
