@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
@@ -25,6 +26,15 @@ class LoginActivity : Activity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
         // [END initialize_auth]
+
+        val user = Firebase.auth.currentUser
+        if (user != null) {
+            // User is signed in
+        } else {
+            // No user is signed in
+            findViewById<ConstraintLayout>(R.id.constraintLayoutForLogin).visibility = View.VISIBLE
+
+        }
     }
 
     // [START on_start_check_user]
@@ -105,14 +115,17 @@ class LoginActivity : Activity() {
     }
 
     fun signInButton(view: View) {
-        val email = findViewById<TextView>(R.id.editTextTextPassword).text
+        val email = findViewById<TextView>(R.id.editTextLogin).text
         val password = findViewById<TextView>(R.id.editTextTextPassword).text
         signIn(email,password)
     }
 
     fun signOutButton(view: View) {
-        val email = findViewById<TextView>(R.id.editTextTextPassword).text
+        val email = findViewById<TextView>(R.id.editTextLogin).text.toString()
         val password = findViewById<TextView>(R.id.editTextTextPassword).text
+        Log.d("DEV-email",email.toString())
+        Log.d("DEV-pass",password.toString())
+
         createAccount(email,password)
     }
 }
