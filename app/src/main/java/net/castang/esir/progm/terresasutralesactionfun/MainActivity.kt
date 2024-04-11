@@ -27,7 +27,8 @@ class MainActivity: ComponentActivity() {
         startActivity(intent)
     }
     fun goToSettings(view: View) {
-        Toast.makeText(this, getString(R.string.toast_comming_soon),Toast.LENGTH_LONG).show()
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
 }
