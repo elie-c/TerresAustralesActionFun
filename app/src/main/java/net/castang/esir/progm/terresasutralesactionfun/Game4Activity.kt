@@ -47,6 +47,7 @@ import java.util.TimerTask
 //           _,
 //         .'.'`.
 //        `      `
+// The prompts can be found there : https://chat.openai.com/share/6c56819f-4fe3-4d3d-b3f6-58ce3bfa1bf9
 
 class Game4Activity : ComponentActivity() {
 
