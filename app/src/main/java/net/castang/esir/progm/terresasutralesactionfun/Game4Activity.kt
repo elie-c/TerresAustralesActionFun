@@ -190,7 +190,10 @@ class Game4Activity : ComponentActivity() {
             .setMessage(resources.getString(R.string.dialog_end_game4,score.toString()))
             .setNeutralButton(resources.getString(R.string.button_go)) { dialog, which ->
                 //Go to next game
-                setResult(RESULT_OK, Intent().putExtra("score", score))
+                val intent = Intent()
+                    .putExtra("activityName",this@Game4Activity.javaClass.simpleName)
+                    .putExtra("score",score)
+                setResult(RESULT_OK, intent)
                 finish()
             }
             .show()

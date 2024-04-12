@@ -56,6 +56,14 @@
                         android:gravity="center"
                         android:textAppearance="?attr/textAppearanceTitleMedium">
                     </TextView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textViewScoreGame1Activity"
+                        android:gravity="center"
+                        android:visibility="gone">
+                    </TextView>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -93,6 +101,13 @@
                         android:gravity="center"
                         android:textAppearance="?attr/textAppearanceTitleMedium">
                     </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textViewScoreGame2Activity"
+                        android:gravity="center"
+                        android:visibility="gone">
+                    </TextView>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -129,6 +144,13 @@
                         android:gravity="center"
                         android:textAppearance="?attr/textAppearanceTitleMedium">
                     </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textViewScoreGame3Activity"
+                        android:gravity="center"
+                        android:visibility="gone">
+                    </TextView>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -164,6 +186,13 @@
                         android:text="@string/title_game4"
                         android:gravity="center"
                         android:textAppearance="?attr/textAppearanceTitleMedium">
+                    </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textViewScoreGame4Activity"
+                        android:gravity="center"
+                        android:visibility="gone">
                     </TextView>
                 </LinearLayout>
             </LinearLayout>

@@ -64,7 +64,10 @@ class Game3Activity : ComponentActivity(),SensorEventListener {
                 .setMessage(resources.getString(R.string.dialog_end_game3,lightFinal.toString()))
                 .setNeutralButton(resources.getString(R.string.button_go)) { dialog, which ->
                     //Go to next game
-                    setResult(RESULT_OK, Intent().putExtra("score", ((1000-lightFinal)/100).toInt()))
+                    val intent = Intent()
+                        .putExtra("activityName",this@Game3Activity.javaClass.simpleName)
+                        .putExtra("score",((1000-lightFinal)/100).toInt())
+                    setResult(RESULT_OK, intent)
                     finish()
                 }
                 .show()

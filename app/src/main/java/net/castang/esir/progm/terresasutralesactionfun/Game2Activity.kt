@@ -83,7 +83,10 @@ class Game2Activity : ComponentActivity(),
                 .setMessage(resources.getString(R.string.dialog_end_game2,time.toString()))
                 .setNeutralButton(resources.getString(R.string.button_go)) { dialog, which ->
                     //Go to next game
-                    setResult(RESULT_OK, Intent().putExtra("score", ((10000-time)/1000).toInt()))
+                    val intent = Intent()
+                        .putExtra("activityName",this@Game2Activity.javaClass.simpleName)
+                        .putExtra("score",(100000/time).toInt())
+                    setResult(RESULT_OK, intent)
                     finish()
                 }
                 .show()

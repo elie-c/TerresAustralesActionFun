@@ -26,12 +26,18 @@ class MainActivity: ComponentActivity() {
         auth = Firebase.auth
         // [END initialize_auth]
         val user = Firebase.auth.currentUser
-        user?.let {
-            for (profile in it.providerData) {
-                val name = profile.displayName
-                findViewById<TextView>(R.id.textViewWelcome).text = resources.getString(R.string.titile_welcome_user,name)
+        if (user != null){
+            user?.let {
+                for (profile in it.providerData) {
+                    val name = profile.displayName
+                    findViewById<TextView>(R.id.textViewWelcome).text = resources.getString(R.string.titile_welcome_user,name)
+                }
             }
+        }else{
+            findViewById<TextView>(R.id.textViewWelcome).text = resources.getString(R.string.titile_welcome_guest)
+
         }
+
     }
 
 
