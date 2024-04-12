@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.google.firebase.Firebase
+import com.google.firebase.auth.userProfileChangeRequest
 
 class LoginActivity : Activity() {
 
@@ -30,10 +32,11 @@ class LoginActivity : Activity() {
         val user = Firebase.auth.currentUser
         if (user != null) {
             // User is signed in
+            findViewById<ConstraintLayout>(R.id.constraintLayoutForSettings).visibility = View.VISIBLE
+            updateUI(user)
         } else {
             // No user is signed in
             findViewById<ConstraintLayout>(R.id.constraintLayoutForLogin).visibility = View.VISIBLE
-
         }
     }
 
@@ -105,6 +108,17 @@ class LoginActivity : Activity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
+        findViewById<ConstraintLayout>(R.id.constraintLayoutForLogin).visibility = View.GONE
+        findViewById<ConstraintLayout>(R.id.constraintLayoutForSettings).visibility = View.VISIBLE
+        user?.let {
+            // Name, email address, and profile photo Url
+            val name = it.displayName
+            val email = it.email
+
+            findViewById<EditText>(R.id.editTextName).setText(name)
+            findViewById<TextView>(R.id.textViewEmail).text = email
+        }
+
     }
 
     private fun reload() {
@@ -127,5 +141,26 @@ class LoginActivity : Activity() {
         Log.d("DEV-pass",password.toString())
 
         createAccount(email,password)
+    }
+
+    fun validateSettings(view: View) {
+        val user = Firebase.auth.currentUser
+        val profileUpdates = userProfileChangeRequest {
+            displayName = findViewById<EditText>(R.id.editTextName).text.toString()
+        }
+        user!!.updateProfile(profileUpdates)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this,R.string.toast_settings_saved,Toast.LENGTH_SHORT).show()
+                    finish()
+                }else{
+                    Toast.makeText(this,R.string.toast_settings_error,Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    fun logOut(view: View) {
+        auth.signOut()
+        finish()
     }
 }

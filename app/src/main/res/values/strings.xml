@@ -67,4 +67,10 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="button_singIn">Connexion</string>
     <string name="button_singOut">Inscription</string>
+    <string name="title_settings">Réglages</string>
+    <string name="toast_settings_saved">Changements validés</string>
+    <string name="toast_settings_error">Erreur de mise à jour</string>
+    <string name="button_disconnect">Se déconnecter</string>
+    <string name="titile_welcome_guest">Bienvenue invité.e !</string>
+    <string name="titile_welcome_user">"Content de te revoir %1$s !"</string>
 </resources>

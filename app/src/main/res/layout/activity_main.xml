@@ -24,19 +24,29 @@
             android:layout_marginBottom="16dp"
             android:src="@mipmap/ic_launcher_round"/>
 
+
+        <TextView
+            android:id="@+id/textViewWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/titile_welcome_guest"
+            android:textAppearance="?attr/textAppearanceTitleLarge"
+            android:layout_marginBottom="70dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/help_main"
-            android:textSize="16sp" />
+            android:textAppearance="?attr/textAppearanceTitleMedium"/>
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_solo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="30dp"
             android:text="@string/button_solo"
             android:onClick="go_solo"
             />
