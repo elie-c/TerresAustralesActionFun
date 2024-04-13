@@ -74,4 +74,6 @@
     <string name="titile_welcome_guest">Bienvenue invité.e !</string>
     <string name="titile_welcome_user">"Content de te revoir %1$s !"</string>
     <string name="score">Score : %1$s </string>
+    <string name="title_connection_ok">Connexion réussite !</string>
+    <string name="messsage_connection_ok">La connexion avec %1$s est réussite ! Tiens toi prêt pour la suite.</string>
 </resources>

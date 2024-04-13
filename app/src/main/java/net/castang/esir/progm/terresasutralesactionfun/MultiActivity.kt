@@ -179,6 +179,7 @@ class MultiActivity : ComponentActivity() {
         //-------------- BLUETOOTH CLIENT - 3 ------------------------
         private fun manageMyConnectedSocket(socket: BluetoothSocket) {
             //TODO show user a message of connexion succesfull
+            makeAlertDialog(getString(R.string.title_connection_ok),getString(R.string.messsage_connection_ok,socket.remoteDevice.name),false)
         }
 
         // --------------- OTHERS ---------------------------
@@ -218,6 +219,7 @@ class MultiActivity : ComponentActivity() {
         }
         private fun manageMyConnectedSocket(it: BluetoothSocket) {
             //TODO start games
+            makeAlertDialog(getString(R.string.title_connection_ok),getString(R.string.messsage_connection_ok,it.remoteDevice.name),false)
         }
 
         // Closes the connect socket and causes the thread to finish.
@@ -293,6 +295,18 @@ class MultiActivity : ComponentActivity() {
         super.onDestroy()
         // Don't forget to unregister the ACTION_FOUND receiver.
             unregisterReceiver(receiver)
+    }
+
+    private fun makeAlertDialog(title : String,message : String, cancelable : Boolean){
+        runOnUiThread(){
+            MaterialAlertDialogBuilder(this@MultiActivity)
+                .setCancelable(false)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(cancelable)
+                .show()
+
+        }
     }
 }
 
