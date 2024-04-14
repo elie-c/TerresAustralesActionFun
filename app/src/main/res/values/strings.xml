@@ -76,4 +76,8 @@
     <string name="score">Score : %1$s </string>
     <string name="title_connection_ok">Connexion réussite !</string>
     <string name="messsage_connection_ok">La connexion avec %1$s est réussite ! Tiens toi prêt pour la suite.</string>
+    <string name="dialog_end_games_win">Tu as gagné cette partie avec %1$s points pour toi, alors que ton adversaire n\'a eu que %2$s points. Reviens jouer très bientôt !</string>
+    <string name="titile_end_game_win">Féliciations !</string>
+    <string name="dialog_end_games_loose">Tu as gagné cette partie avec %1$s points pour toi, alors que ton adversaire a eu %2$s points. Tu devrais tester le mode entrainement !</string>
+    <string name="titile_end_game_loose">Ho zut !</string>
 </resources>
