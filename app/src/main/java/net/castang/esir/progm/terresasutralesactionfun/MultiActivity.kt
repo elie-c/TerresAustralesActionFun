@@ -15,7 +15,6 @@ import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -24,14 +23,17 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import java.io.IOException
 import java.util.Random
 import java.util.UUID
 
 
 class MultiActivity : ComponentActivity() {
-    val numberOfGames = 3
-    val scoresList = mutableListOf<Int>()
+    val numberOfGames = 1
+    val scoresListLocal = mutableListOf<Int>()
+    val scoresListRemote = mutableListOf<Int>()
 
     private lateinit var bluetoothAdapter : BluetoothAdapter
     private var arrayToShow : Array<String>  = arrayOf()
@@ -41,13 +43,13 @@ class MultiActivity : ComponentActivity() {
     private var MY_UUID: UUID = UUID.fromString("d52a4216-0acc-43d7-ba00-d3ffdeecc59b") //TODO chnage this
     private var NAME = "TAAF" //TODO change this
     private val REQUEST_CODE = 1
-    private var mHandler: Handler? = null
+
+    private lateinit var generalSocket: BluetoothSocket
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_multi)
-        mHandler = Handler()
 
         //----------------- BLUETOOTH ---------------------
         val bluetoothManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
@@ -182,31 +184,42 @@ class MultiActivity : ComponentActivity() {
 
         //-------------- BLUETOOTH CLIENT - 3 ------------------------
         private fun manageMyConnectedSocket(socket: BluetoothSocket) {
-            //TODO show user a message of connexion succesfull
-            makeAlertDialog(getString(R.string.title_connection_ok),getString(R.string.messsage_connection_ok,socket.remoteDevice.name),false)
+            makeAlertDialog(
+                getString(R.string.title_connection_ok),
+                getString(R.string.messsage_connection_ok, socket.remoteDevice.name),
+                false
+            )
+            generalSocket = socket
 
-            val inputStream = socket.inputStream
-            val outputStream = socket.outputStream
+            //Managing message reception
+            val boolean = true
 
-            //Sending message
-            val messageToSend = "Hello, Bluetooth!"
-            try {
-                outputStream.write(messageToSend.toByteArray())
-                println("Message envoyé: $messageToSend")
-            } catch (e: IOException) {
-                println("Erreur lors de l'envoi du message: ${e.message}")
+            //Wait for receving message
+            val receivingMessage = GlobalScope.async {
+                val message = read(socket)
+                if (message.contains("START:")){
+                    val className = message.substringAfter(":")
+                    Log.d("DEV",message)
+                    Log.d("DEV",className)
+                    val newclass = Class.forName(className)
+                    val intent = Intent(this@MultiActivity, newclass)
+                    startActivityForResult(intent,1)
+
+                }
+            }
+            while (boolean){
+                receivingMessage.invokeOnCompletion {
+                        throwable ->
+                    if (throwable != null) {
+                    //    println("La coroutine a échoué: $throwable")
+                    } else {
+                        val response = receivingMessage.getCompleted()
+                        println("Réponse reçue: $response")
+                    }
+                }
             }
 
-            //Receiving message
-            val buffer = ByteArray(1024)
-            val bytesRead: Int
-            try {
-                bytesRead = inputStream.read(buffer)
-                val receivedMessage = String(buffer, 0, bytesRead)
-                println("Message reçu: $receivedMessage")
-            } catch (e: IOException) {
-                println("Erreur lors de la réception du message: ${e.message}")
-            }
+
         }
 
         // --------------- OTHERS ---------------------------
@@ -239,44 +252,21 @@ class MultiActivity : ComponentActivity() {
                 }
                 socket?.also {
                     manageMyConnectedSocket(it)
-                    mmServerSocket?.close()
+                    //mmServerSocket?.close()
                     shouldLoop = false
                 }
             }
         }
-        private fun manageMyConnectedSocket(it: BluetoothSocket) {
+        private fun manageMyConnectedSocket(socket: BluetoothSocket) {
             //When connection suceed, the server start the games
-            //TODO start games
-            makeAlertDialog(getString(R.string.title_connection_ok),getString(R.string.messsage_connection_ok,it.remoteDevice.name),false)
-            //mChatService = new BluetoothChatService(activity, mHandler);
-            //mBluetoothService = MyBluetoothService(mHandler!!)
-            //mBluetoothService.start()
-            val inputStream = it.inputStream
-            val outputStream = it.outputStream
-
-            //Sending message
-            val messageToSend = "Hello, Bluetooth!"
-            try {
-                outputStream.write(messageToSend.toByteArray())
-                println("Message envoyé: $messageToSend")
-            } catch (e: IOException) {
-                println("Erreur lors de l'envoi du message: ${e.message}")
-            }
-
-            //Receiving message
-            val buffer = ByteArray(1024)
-            val bytesRead: Int
-            try {
-                bytesRead = inputStream.read(buffer)
-                val receivedMessage = String(buffer, 0, bytesRead)
-                println("Message reçu: $receivedMessage")
-            } catch (e: IOException) {
-                println("Erreur lors de la réception du message: ${e.message}")
-            }
-
-
+            makeAlertDialog(
+                getString(R.string.title_connection_ok),
+                getString(R.string.messsage_connection_ok, socket.remoteDevice.name),
+                false
+            )
+            generalSocket = socket
+            startGames()
         }
-
 
         // Closes the connect socket and causes the thread to finish.
         fun cancel() {
@@ -288,11 +278,42 @@ class MultiActivity : ComponentActivity() {
         }
     }
 
-    //______________TEST ZONE___________________________
+    //______________ BT FUNCTIONS FOR BOTH ___________________________
+    fun write(message: String, socket: BluetoothSocket){
+        val outputStream = socket.outputStream
+        try {
+            outputStream.write(message.toByteArray())
+        } catch (e: IOException) {
+            println("Error sending : ${e.message}")
+        }
+    }
 
-    //------------------------ GAMES FUNCTIONS ----------------------------
+    fun read(socket: BluetoothSocket): String {
+        val inputStream = socket.inputStream
+        val buffer = ByteArray(1024)
+        val bytesRead: Int
+        try {
+            bytesRead = inputStream.read(buffer)
+            val receivedMessage = String(buffer, 0, bytesRead)
+            return receivedMessage
+        } catch (e: IOException) {
+            println("Error reading : ${e.message}")
+            return ("")
+        }
+    }
+
+
+
+    //------------------------ GAME FUNCTIONS FOR SERVER ----------------------------
+    private fun startAGame(intent: Intent){
+        var message = "START:"+ (intent.component?.className ?: String)
+        Log.d("DEV",message)
+        write(message,generalSocket)
+        startActivityForResult(intent,1)
+    }
+
+
     private fun startGames(){
-        //--------------------------- GAMES -------------------
         //Pickup games
         val activities = listOf(
             Game1Activity::class.java,
@@ -316,17 +337,28 @@ class MultiActivity : ComponentActivity() {
         }
     }
 
-    private fun startAGame(intent: Intent){
 
-        startActivityForResult(intent,1)
+    //______________________ GAME FUNCTIONS FOR BOTH __________________________
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            val score = data?.getIntExtra("score", 0)
+            if (score != null) {
+                scoresListLocal.add(score)
+            }
+        }
+        if (scoresListLocal.size == numberOfGames) {
+            //If all the results are here
+            endsMultiMode()
+        }
     }
-
 
 
     private fun endsMultiMode() {
         //End of the games
-        val scoreTotal = scoresList.sum()
-        Log.d("TEST",scoresList.toString())
+        val scoreTotal = scoresListLocal.sum()
+        //TODO compare remote and local score
+
         runOnUiThread(){
             MaterialAlertDialogBuilder(this@MultiActivity)
                 .setCancelable(false)
@@ -343,25 +375,17 @@ class MultiActivity : ComponentActivity() {
         mediaPlayer.start()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            val score = data?.getIntExtra("score", 0)
-            Log.d("TEST", score.toString())
-            if (score != null) {
-                scoresList.add(score)
-            }
-        }
-        if (scoresList.size == numberOfGames) {
-            //If all the results are here
-            endsMultiMode()
-        }
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()
         // Don't forget to unregister the ACTION_FOUND receiver.
-        // unregisterReceiver(receiver)
+        try {
+            //unregisterReceiver(receiver)
+            //generalSocket.close()
+        }catch (e: IOException){
+
+        }
     }
 
     private fun makeAlertDialog(title : String,message : String, cancelable : Boolean){
@@ -372,7 +396,6 @@ class MultiActivity : ComponentActivity() {
                 .setMessage(message)
                 .setCancelable(cancelable)
                 .show()
-
         }
     }
 }
