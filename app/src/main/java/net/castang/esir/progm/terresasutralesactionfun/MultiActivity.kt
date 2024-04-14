@@ -26,6 +26,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.IOException
 import java.util.Random
 import java.util.UUID
@@ -229,6 +231,8 @@ class MultiActivity : ComponentActivity() {
                     //    println("La coroutine a échoué: $throwable")
                     } else {
                         val response = receivingMessage.getCompleted()
+                        boolean = false
+
                     }
                 }
             }
@@ -296,8 +300,8 @@ class MultiActivity : ComponentActivity() {
     fun write(message: String, socket: BluetoothSocket){
         val outputStream = socket.outputStream
         try {
+            Log.d("DEV",message)
             outputStream.write(message.toByteArray())
-            Log.d("DEV_msgenv",message)
         } catch (e: IOException) {
             println("Error sending : ${e.message}")
         }
@@ -348,14 +352,6 @@ class MultiActivity : ComponentActivity() {
             }while (activitiesToLaunch.contains(activity)) //To have only one time each activity
             activitiesToLaunch.add(activity)
         }
-        /*
-//Start games
-for (i in 1..numberOfGames){
-    val intent = Intent(this, activitiesToLaunch.get(i-1))
-    startAGame(intent)
-}
- */
-        //TODO remove above if test OK
         goNextGame()
     }
 
@@ -374,86 +370,67 @@ for (i in 1..numberOfGames){
     //______________________ GAME FUNCTIONS FOR BOTH __________________________
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            val score = data?.getIntExtra("score", 0)
-            if (score != null) {
-                makeAlertDialog("ATTENTE","Wait",false)
-                scoresListLocal.add(score)
-
-                //Manage score and sycroGames for server and send result for client
-                if (isServer){
-                    if (scoresListLocal.size == scoresListRemote.size){
-                        //if there is already the socre of the remote game = remote finish game first
-                        //can go to next game
-                        goNextGame()
-                    }else{
-                        //Wait for the remote to finish and read message
-                        //Managing message reception
-                        var boolean = true
-
-                        //Wait for receiving message
-                        val receivingMessage = GlobalScope.async {
-                            val message = read(generalSocket)
-                            if (message.contains("SCORE:")){
-                                Log.d("DEV",message)
-                                val score = message.substringAfter(":").toInt()
-                                scoresListRemote.add(score)
-                                boolean = false
-                            }
-                        }
-                        while (boolean){
-                            receivingMessage.invokeOnCompletion {
-                                    throwable ->
-                                if (throwable != null) {
-                                    //    println("La coroutine a échoué: $throwable")
-                                } else {
-                                    val response = receivingMessage.getCompleted()
-                                }
-                            }
-                        }
-                        goNextGame()
-                    }
-                }else{ //If client
-                    //wait for server
-                    var message = ""
-
-                    do {
-                        message = read(generalSocket)
-                        write("SCORE:"+score,generalSocket)
-                    }while (!(message.contains(":")))
-
-                    if (message.contains("START:")){
-                        iteratorOfActivitiesToLaunch ++
-                        val className = message.substringAfter(":")
-                        val newclass = Class.forName(className)
-                        val intent = Intent(this@MultiActivity, newclass)
-                        startActivityForResult(intent,1)
-                    }else if(message.contains("SCORE:")){
-                        Log.d("DEV",message)
-                        val score = message.substringAfter(":").toInt()
-                        scoresListRemote.add(score)
-                    }else if(message.contains("STOP:")){
-                        Log.d("DEV",message)
-                        val score = message.substringAfter(":").toInt()
-                        scoresListRemote.add(score)
-                        endsMultiMode()
-                    }
-                    //makeAlertDialog("TEST",message,true)
-                    //If client send score to server
-                }
+        val score = data?.getIntExtra("score", 0)
+        if (score != null) {
+            runBlocking {
+                processScore(score)
             }
         }
-
-
-
     }
     fun processScore(score: Int) {
         GlobalScope.launch {
             // Traitement asynchrone du score
-            delay(1000) // Simulation d'un traitement
             println("Score traité: $score")
+            makeAlertDialog("ATTENTE","Wait",false)
+            scoresListLocal.add(score)
+
+            //Manage score and sycroGames for server and send result for client
+            if (isServer){
+                if (scoresListLocal.size == scoresListRemote.size){
+                    //if there is already the socre of the remote game = remote finish game first
+                    //can go to next game
+                    goNextGame()
+                }else{
+                    //Wait for the remote to finish and read message
+                    //Managing message reception
+
+                    //Wait for receiving message
+                    val message = read(generalSocket)
+                    Log.d("DEV_read",message)
+                    if (message.contains("SCORE")){
+                        //If received score from client, so client finished game
+                        val remoteScore = message.substringAfter(":").toInt()
+                        scoresListRemote.add(remoteScore)
+                        goNextGame()
+                    }
+                }
+            }else{ //If client
+                //wait for server
+                var message = ""
+                write("SCORE:"+score,generalSocket)
+                message = read(generalSocket)
+                if (message.contains("START:")){
+                    iteratorOfActivitiesToLaunch ++
+                    val className = message.substringAfter(":")
+                    val newclass = Class.forName(className)
+                    val intent = Intent(this@MultiActivity, newclass)
+                    startActivityForResult(intent,1)
+                }else if(message.contains("SCORE:")){
+                    Log.d("DEV",message)
+                    val score = message.substringAfter(":").toInt()
+                    scoresListRemote.add(score)
+                }else if(message.contains("STOP:")){
+                    Log.d("DEV",message)
+                    val score = message.substringAfter(":").toInt()
+                    scoresListRemote.add(score)
+                    endsMultiMode()
+                }
+            }
         }
     }
+
+
+
 
     private fun endsMultiMode() {
         //End of the games
@@ -469,7 +446,7 @@ for (i in 1..numberOfGames){
         }
 
 
-        if (scoreTotalRemote>=scoreTotalLocal){
+        if (scoreTotalRemote<=scoreTotalLocal){
             title = resources.getString(R.string.titile_end_game_win)
             message = resources.getString(R.string.dialog_end_games_win,scoreTotalLocal.toString(),scoreTotalRemote.toString())
             music = MediaPlayer.create(this,R.raw.music_win)
@@ -482,7 +459,7 @@ for (i in 1..numberOfGames){
         runOnUiThread(){
             MaterialAlertDialogBuilder(this@MultiActivity)
                 .setCancelable(false)
-                .setTitle(resources.getString(R.string.title_end_game))
+                .setTitle(title)
                 .setMessage(message)
                 .setNeutralButton(resources.getString(R.string.button_seeyou)) { dialog, which ->
                     //Go to menu
