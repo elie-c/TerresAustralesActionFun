@@ -33,9 +33,9 @@
     <string name="dialog_end_solo">Le mode solo est fini. Tu as un score total de %1$s points. Reviens vite!</string>
     <string name="button_seeyou">A bientôt !</string>
     <string name="title_activity_multi">MultiActivity</string>
-    <string name="button_discover">Decouvrir les téléphones disponibles</string>
-    <string name="button_stopDiscover">Arreter la découverte</string>
-    <string name="button_makeMeDiscoverable">Rend moi découvrable par les autres</string>
+    <string name="button_discover">Rechercher une partie</string>
+    <string name="button_stopDiscover">Arreter la recherche</string>
+    <string name="button_makeMeDiscoverable">Héberger une partie</string>
     <string name="title_listDevices">Liste des appareils disponibles\n</string>
     <string name="toast_connection_error">Connexion impossible\n</string>
     <string name="title_game4">Chasse et pétrel</string>
@@ -82,4 +82,6 @@
     <string name="dialog_end_games_loose">Tu as perdu cette partie avec %1$s points pour toi, alors que ton adversaire a eu %2$s points. Tu devrais tester le mode entrainement !</string>
     <string name="titile_end_game_loose">Ho zut !</string>
     <string name="dialog_wait_BT">Ton adversaire n\'a pas encore fini de jouer, attend un petit peu et met lui la pression pour qu\'il finisse rapidement.</string>
+    <string name="title_activity_game5">Game5Activity</string>
+    <string name="title_game5">Biosécurité\n</string>
 </resources>

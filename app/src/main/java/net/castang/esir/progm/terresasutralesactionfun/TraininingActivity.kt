@@ -70,6 +70,11 @@ class TraininingActivity : ComponentActivity() {
         startActivityForResult(intent,1)
     }
 
+    fun go_game5(view: View) {
+        val intent = Intent(this, Game5Activity::class.java)
+        startActivityForResult(intent,1)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
