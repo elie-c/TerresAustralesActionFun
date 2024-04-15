@@ -25,7 +25,6 @@ import androidx.core.app.ActivityCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.IOException
@@ -34,7 +33,7 @@ import java.util.UUID
 
 
 class MultiActivity : ComponentActivity() {
-    val numberOfGames = 1
+    val numberOfGames = 3
     val scoresListLocal = mutableListOf<Int>()
     val scoresListRemote = mutableListOf<Int>()
 
@@ -44,14 +43,14 @@ class MultiActivity : ComponentActivity() {
     private var arrayNAME : Array<String>  = arrayOf()
 
     private var MY_UUID: UUID = UUID.fromString("d52a4216-0acc-43d7-ba00-d3ffdeecc59b") //TODO chnage this
-    private var NAME = "TAAF" //TODO change this
+    private var NAME = "TAAF"
     private val REQUEST_CODE = 1
 
     private lateinit var generalSocket: BluetoothSocket
     private var isServer : Boolean = false
 
-    val activitiesToLaunch : MutableList<Class<out ComponentActivity>> = mutableListOf()
-    var iteratorOfActivitiesToLaunch = 0
+    private val activitiesToLaunch : MutableList<Class<out ComponentActivity>> = mutableListOf()
+    private var iteratorOfActivitiesToLaunch = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -270,7 +269,6 @@ class MultiActivity : ComponentActivity() {
                 }
                 socket?.also {
                     manageMyConnectedSocket(it)
-                    //mmServerSocket?.close()
                     shouldLoop = false
                 }
             }
@@ -285,7 +283,6 @@ class MultiActivity : ComponentActivity() {
             generalSocket = socket
             startGames()
         }
-
         // Closes the connect socket and causes the thread to finish.
         fun cancel() {
             try {
@@ -300,28 +297,24 @@ class MultiActivity : ComponentActivity() {
     fun write(message: String, socket: BluetoothSocket){
         val outputStream = socket.outputStream
         try {
-            Log.d("DEV",message)
+            Log.d("MSG_SENT",message)
             outputStream.write(message.toByteArray())
         } catch (e: IOException) {
-            println("Error sending : ${e.message}")
+            e.message?.let { Log.e("MSG_SENT", it) }
         }
     }
-
     fun read(socket: BluetoothSocket): String {
         val inputStream = socket.inputStream
         val buffer = ByteArray(1024)
         val bytesRead: Int
         try {
             bytesRead = inputStream.read(buffer)
-            val receivedMessage = String(buffer, 0, bytesRead)
-            return receivedMessage
+            return String(buffer, 0, bytesRead)
         } catch (e: IOException) {
-            println("Error reading : ${e.message}")
-            return ("")
+            e.message?.let { Log.e("MSG_READ", it) }
+            return ("END:999999") //End game if read error
         }
     }
-
-
 
     //------------------------ GAME FUNCTIONS FOR SERVER ----------------------------
     private fun startAGame(intent: Intent){
@@ -332,18 +325,15 @@ class MultiActivity : ComponentActivity() {
         startActivityForResult(intent,1)
     }
 
-
     private fun startGames(){
         isServer = true
         //Pickup games
         val activities = listOf(
-            //Game1Activity::class.java,
-            //Game2Activity::class.java,
+            Game1Activity::class.java,
+            Game2Activity::class.java,
             Game3Activity::class.java,
-            //Game4Activity::class.java
+            Game4Activity::class.java
             )
-        //val activitiesToLaunch : MutableList<Class<out ComponentActivity>> = mutableListOf()
-
         for (i in 1..numberOfGames){
             var activity : Class<out ComponentActivity>
             do {
@@ -381,9 +371,8 @@ class MultiActivity : ComponentActivity() {
         GlobalScope.launch {
             // Traitement asynchrone du score
             println("Score traité: $score")
-            makeAlertDialog("ATTENTE","Wait",false)
+            makeAlertDialog(resources.getString(R.string.title_wait),resources.getString(R.string.dialog_wait_BT),false)
             scoresListLocal.add(score)
-
             //Manage score and sycroGames for server and send result for client
             if (isServer){
                 if (scoresListLocal.size == scoresListRemote.size){
@@ -392,11 +381,7 @@ class MultiActivity : ComponentActivity() {
                     goNextGame()
                 }else{
                     //Wait for the remote to finish and read message
-                    //Managing message reception
-
-                    //Wait for receiving message
-                    val message = read(generalSocket)
-                    Log.d("DEV_read",message)
+                    val message = read(generalSocket) //Wait for receiving message
                     if (message.contains("SCORE")){
                         //If received score from client, so client finished game
                         val remoteScore = message.substringAfter(":").toInt()
@@ -405,10 +390,9 @@ class MultiActivity : ComponentActivity() {
                     }
                 }
             }else{ //If client
-                //wait for server
                 var message = ""
                 write("SCORE:"+score,generalSocket)
-                message = read(generalSocket)
+                message = read(generalSocket) //wait for server
                 if (message.contains("START:")){
                     iteratorOfActivitiesToLaunch ++
                     val className = message.substringAfter(":")
@@ -416,11 +400,9 @@ class MultiActivity : ComponentActivity() {
                     val intent = Intent(this@MultiActivity, newclass)
                     startActivityForResult(intent,1)
                 }else if(message.contains("SCORE:")){
-                    Log.d("DEV",message)
                     val score = message.substringAfter(":").toInt()
                     scoresListRemote.add(score)
                 }else if(message.contains("STOP:")){
-                    Log.d("DEV",message)
                     val score = message.substringAfter(":").toInt()
                     scoresListRemote.add(score)
                     endsMultiMode()
@@ -428,10 +410,6 @@ class MultiActivity : ComponentActivity() {
             }
         }
     }
-
-
-
-
     private fun endsMultiMode() {
         //End of the games
         val scoreTotalLocal = scoresListLocal.sum()
@@ -444,13 +422,13 @@ class MultiActivity : ComponentActivity() {
             //Stop games on client
             write("STOP:"+scoreTotalLocal,generalSocket)
         }
-
-
         if (scoreTotalRemote<=scoreTotalLocal){
+            //If the local player win
             title = resources.getString(R.string.titile_end_game_win)
             message = resources.getString(R.string.dialog_end_games_win,scoreTotalLocal.toString(),scoreTotalRemote.toString())
             music = MediaPlayer.create(this,R.raw.music_win)
         }else{
+            //If the remote player win
             title = resources.getString(R.string.titile_end_game_loose)
             message = resources.getString(R.string.dialog_end_games_loose,scoreTotalLocal.toString(),scoreTotalRemote.toString())
             music = MediaPlayer.create(this,R.raw.music_loose)
@@ -470,17 +448,8 @@ class MultiActivity : ComponentActivity() {
         }
     }
 
-
-
     override fun onDestroy() {
         super.onDestroy()
-        // Don't forget to unregister the ACTION_FOUND receiver.
-        try {
-            //unregisterReceiver(receiver)
-            //generalSocket.close()
-        }catch (e: IOException){
-
-        }
     }
 
     private fun makeAlertDialog(title : String,message : String, cancelable : Boolean){

@@ -80,4 +80,5 @@
     <string name="titile_end_game_win">Féliciations !</string>
     <string name="dialog_end_games_loose">Tu as perdu cette partie avec %1$s points pour toi, alors que ton adversaire a eu %2$s points. Tu devrais tester le mode entrainement !</string>
     <string name="titile_end_game_loose">Ho zut !</string>
+    <string name="dialog_wait_BT">Ton adversaire n\'a pas encore fini de jouer, attend un petit peu et met lui la pression pour qu\'il finisse rapidement.</string>
 </resources>

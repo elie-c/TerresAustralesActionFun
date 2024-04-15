@@ -70,9 +70,12 @@ class SoloActivity : ComponentActivity() {
         }
         val mediaPlayer = MediaPlayer.create(this, R.raw.music_end_solo)
         mediaPlayer.start()
+    }
 
-
-
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent,)
+        super.onBackPressed()
     }
 
 
