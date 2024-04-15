@@ -1,5 +1,6 @@
 package net.castang.esir.progm.terresasutralesactionfun
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
@@ -8,19 +9,8 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Vibrator
-import android.util.Log
-import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import net.castang.esir.progm.terresasutralesactionfun.ui.theme.TerresAsutralesActionFunTheme
 
 class Game3Activity : ComponentActivity(),SensorEventListener {
     private var light : Float = 1000F
@@ -55,7 +45,7 @@ class Game3Activity : ComponentActivity(),SensorEventListener {
         }
     }
 
-    private fun gameEnd(lightFinal : Float) {
+    private fun gameEnd(lightFinal: Float) {
         sensorManager.unregisterListener(this)
         runOnUiThread {
             MaterialAlertDialogBuilder(this@Game3Activity)
@@ -85,5 +75,11 @@ class Game3Activity : ComponentActivity(),SensorEventListener {
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         //Do nothing but do it good
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        gameEnd(99999F)
     }
 }

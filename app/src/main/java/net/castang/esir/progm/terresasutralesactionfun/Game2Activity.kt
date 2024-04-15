@@ -1,5 +1,6 @@
 package net.castang.esir.progm.terresasutralesactionfun
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -151,6 +152,12 @@ class Game2Activity : ComponentActivity(),
 
     override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
         return true
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        gameEnd()
     }
 
 }

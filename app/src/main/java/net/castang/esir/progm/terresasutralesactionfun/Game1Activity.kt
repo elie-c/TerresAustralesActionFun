@@ -1,5 +1,6 @@
 package net.castang.esir.progm.terresasutralesactionfun
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -161,6 +162,10 @@ class Game1Activity : ComponentActivity() {
         }
         // Start timer
         timer.schedule(task, 0L, timePerQuestion*1000)
+    }
 
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        //super.onBackPressed()
     }
 }

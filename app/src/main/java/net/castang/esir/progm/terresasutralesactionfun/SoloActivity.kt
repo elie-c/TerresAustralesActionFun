@@ -3,7 +3,6 @@ package net.castang.esir.progm.terresasutralesactionfun
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Random

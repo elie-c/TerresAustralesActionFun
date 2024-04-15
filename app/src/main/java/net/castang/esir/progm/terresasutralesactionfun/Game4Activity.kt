@@ -1,5 +1,6 @@
 package net.castang.esir.progm.terresasutralesactionfun
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -214,5 +215,11 @@ class Game4Activity : ComponentActivity() {
             windowManager.defaultDisplay.getMetrics(displayMetrics)
             return displayMetrics.heightPixels
         }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        endGame()
+        //super.onBackPressed()
+    }
 }
 

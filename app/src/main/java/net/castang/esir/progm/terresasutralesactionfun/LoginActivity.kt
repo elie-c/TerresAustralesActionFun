@@ -1,6 +1,7 @@
 package net.castang.esir.progm.terresasutralesactionfun
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -82,7 +83,7 @@ class LoginActivity : Activity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
-                    updateUI(user)
+                    finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -162,5 +163,11 @@ class LoginActivity : Activity() {
     fun logOut(view: View) {
         auth.signOut()
         finish()
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent,)
+        super.onBackPressed()
     }
 }
