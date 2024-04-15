@@ -84,10 +84,14 @@ class Game5Activity : AppCompatActivity() {
         event?.let {
             val x = it.rawX.toInt()
             val y = it.rawY.toInt()
+            Log.d("DEV",it.toString())
 
-            if (it.action == MotionEvent.ACTION_DOWN) {
+            if (it.action == MotionEvent.ACTION_MOVE) {
                 for (i in 0 until layout.childCount) {
                     val childView = layout.getChildAt(i)
+                    if (childView.toString().contains("selectedTool")){
+                        return super.onTouchEvent(event)
+                    }
                     Log.d("DEV",childView.toString())
 
                     if (childView is ImageView && childView.drawable != null) {
@@ -117,6 +121,7 @@ class Game5Activity : AppCompatActivity() {
     }
 
     private fun handleToolTouch(view: View, event: MotionEvent) {
+        onTouchEvent(event)
         val layoutParams = view.layoutParams as RelativeLayout.LayoutParams
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
@@ -129,20 +134,23 @@ class Game5Activity : AppCompatActivity() {
                 layoutParams.leftMargin = (event.rawX + dX).toInt()
                 layoutParams.topMargin = (event.rawY + dY).toInt()
                 view.layoutParams = layoutParams
-            }
-            MotionEvent.ACTION_UP -> {
-                // Action lorsque l'utilisateur arrête de toucher l'outil
+
                 // Vérifier s'il y a collision avec une saleté et supprimer si nécessaire
                 for (i in 0 until layout.childCount) {
                     val childView = layout.getChildAt(i)
-                    if (childView is ImageView && childView.drawable != null) {
-                        if (isViewOverlapping(view.x.toInt(), view.y.toInt(), childView, selectedToolImageView)) {
-                            val childDrawable = childView.drawable
-                            if ((selectedTool == R.drawable.bross && childDrawable.constantState == resources.getDrawable(R.drawable.stain)?.constantState) ||
-                                (selectedTool == R.drawable.vacuum && childDrawable.constantState == resources.getDrawable(R.drawable.seeds)?.constantState)) {
-                                layout.removeView(childView)
+                    if (!childView.toString().contains("selectedTool")){
+
+
+                        Log.d("DEV",childView.toString())
+                        if (childView is ImageView && childView.drawable != null) {
+                            if (isViewOverlapping(view.x.toInt(), view.y.toInt(), childView, selectedToolImageView)) {
+                                val childDrawable = childView.drawable
+                                if ((selectedTool == R.drawable.bross && childDrawable.constantState == resources.getDrawable(R.drawable.stain)?.constantState) ||
+                                    (selectedTool == R.drawable.vacuum && childDrawable.constantState == resources.getDrawable(R.drawable.seeds)?.constantState)) {
+                                    layout.removeView(childView)
+                                }
+                                break
                             }
-                            break
                         }
                     }
                 }
