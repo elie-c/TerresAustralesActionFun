@@ -1,6 +1,19 @@
+/*
+  _______  _______ .______       __  ___      _______.
+ /  _____||   ____||   _  \     |  |/  /     /       |
+|  |  __  |  |__   |  |_)  |    |  '  /     |   (----`
+|  | |_ | |   __|  |      /     |    <       \   \
+|  |__| | |  |____ |  |\  \----.|  .  \  .----)   |
+ \______| |_______|| _| `._____||__|\__\ |_______/
+
+// This Java program was created with the assistance of ChatGPT.
+// Stay tuned for the prompt link :
+// Note : le lien du prompt n'a pas pu être mis car il est bloqué par la modération : This shared link has been disabled by moderation.
+*/
 
 package net.castang.esir.progm.terresasutralesactionfun
 
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
@@ -10,22 +23,26 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Random
 
 
 
 class Game5Activity : AppCompatActivity() {
-
     private lateinit var layout: RelativeLayout
     private lateinit var selectedToolImageView: ImageView
     private var selectedTool: Int = R.drawable.bross // Par défaut, la brosse est sélectionnée
+    private var timestampStart : Long = 0
     private var dX: Float = 0f
     private var dY: Float = 0f
+    private var numDirts = 20 //Can be change later
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game5)
+        timestampStart = System.currentTimeMillis()
+
 
         layout = findViewById(R.id.layout)
         selectedToolImageView = findViewById(R.id.selectedToolImageView)
@@ -58,10 +75,8 @@ class Game5Activity : AppCompatActivity() {
     }
 
     private fun generateDirt() {
-        val numDirt = 30
         val random = Random()
-
-        for (i in 0 until numDirt) {
+        for (i in 0 until numDirts) {
             val dirtImageView = ImageView(this)
             dirtImageView.setImageResource(if (random.nextBoolean()) R.drawable.seeds else R.drawable.stain)
             val layoutParams = RelativeLayout.LayoutParams(
@@ -79,38 +94,6 @@ class Game5Activity : AppCompatActivity() {
         val density = resources.displayMetrics.density
         return (dp * density).toInt()
     }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        event?.let {
-            val x = it.rawX.toInt()
-            val y = it.rawY.toInt()
-            Log.d("DEV",it.toString())
-
-            if (it.action == MotionEvent.ACTION_MOVE) {
-                for (i in 0 until layout.childCount) {
-                    val childView = layout.getChildAt(i)
-                    if (childView.toString().contains("selectedTool")){
-                        return super.onTouchEvent(event)
-                    }
-                    Log.d("DEV",childView.toString())
-
-                    if (childView is ImageView && childView.drawable != null) {
-                        if (isViewOverlapping(x, y, childView, selectedToolImageView)) {
-                            val childDrawable = childView.drawable
-                            Log.d("DEV",childView.toString())
-                            if ((selectedTool == R.drawable.bross && childDrawable.constantState == resources.getDrawable(R.drawable.stain)?.constantState) ||
-                                (selectedTool == R.drawable.vacuum && childDrawable.constantState == resources.getDrawable(R.drawable.seeds)?.constantState)) {
-                                layout.removeView(childView)
-                            }
-                            break
-                        }
-                    }
-                }
-            }
-        }
-        return super.onTouchEvent(event)
-    }
-
 
     private fun isViewOverlapping(x: Int, y: Int, view1: View, view2: View): Boolean {
         val rect1 = Rect()
@@ -139,8 +122,6 @@ class Game5Activity : AppCompatActivity() {
                 for (i in 0 until layout.childCount) {
                     val childView = layout.getChildAt(i)
                     if (!childView.toString().contains("selectedTool")){
-
-
                         Log.d("DEV",childView.toString())
                         if (childView is ImageView && childView.drawable != null) {
                             if (isViewOverlapping(view.x.toInt(), view.y.toInt(), childView, selectedToolImageView)) {
@@ -148,6 +129,10 @@ class Game5Activity : AppCompatActivity() {
                                 if ((selectedTool == R.drawable.bross && childDrawable.constantState == resources.getDrawable(R.drawable.stain)?.constantState) ||
                                     (selectedTool == R.drawable.vacuum && childDrawable.constantState == resources.getDrawable(R.drawable.seeds)?.constantState)) {
                                     layout.removeView(childView)
+                                    numDirts --
+                                    if (numDirts < 1){
+                                        gameEnd()
+                                    }
                                 }
                                 break
                             }
@@ -155,6 +140,25 @@ class Game5Activity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun gameEnd() {
+        val time = System.currentTimeMillis()-timestampStart
+        runOnUiThread {
+            MaterialAlertDialogBuilder(this@Game5Activity)
+                .setCancelable(false)
+                .setTitle(resources.getString(R.string.title_end_game))
+                .setMessage(resources.getString(R.string.dialog_end_game5,time.toString()))
+                .setNeutralButton(resources.getString(R.string.button_go)) { dialog, which ->
+                    //Go to next game
+                    val intent = Intent()
+                        .putExtra("activityName",this@Game5Activity.javaClass.simpleName)
+                        .putExtra("score",(100000/time).toInt())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+                .show()
         }
     }
 

@@ -66,12 +66,9 @@ class Game2Activity : ComponentActivity(),
     }
 
     private fun gameProcess() {
-        //TODO wait for start and play marseillaise
         mDetector = GestureDetectorCompat(this, this)
         mDetector.setOnDoubleTapListener(this)
         timestampStart = System.currentTimeMillis()
-
-
     }
 
 

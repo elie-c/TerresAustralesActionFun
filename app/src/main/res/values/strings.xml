@@ -23,8 +23,8 @@
     <string name="toast_timeout">Trop tard !</string>
     <string name="title_game2">Montée des couleurs</string>
     <string name="title_activity_game2">Game2Activity</string>
-    <string name="dialog_rules_game2">Aujourd\'hui c\'est toi qui est chargé de monter les couelurs. Appuie sur l\'ecran pour monter le drapeau dès que tu entend la marseillaise</string>
-    <string name="dialog_end_game2">Le jeu est fini. Tu as mis %1$s millisecondes pour monter ce drapeau. Clique sur le bouton pour passer au jeu suivant.</string>
+    <string name="dialog_rules_game2">Aujourd\'hui c\'est toi qui est chargé de monter les couelurs. Appuie sur l\'ecran pour monter le drapeau.</string>
+    <string name="dialog_end_game2">Le jeu est fini. Tu as mit %1$s millisecondes pour monter ce drapeau. Clique sur le bouton pour passer au jeu suivant.</string>
     <string name="title_game3">Base étoilée</string>
     <string name="title_activity_game3">Game3Activity</string>
     <string name="dialog_rules_game3">C\'est l\'opération base étoilée. Celà veut dire qu\'il faut éviter toutes sources lumineuses sur la base, sinon les jeunes oiseux risquent de s\'échouer. Tu ne voudrais pas avoir la mort d\'un bébé pétrel sur la conscience ? Alors tu as 3 secondes pour mettre ton téléphone le plus possible dans l\'obscurité !</string>
@@ -84,4 +84,7 @@
     <string name="dialog_wait_BT">Ton adversaire n\'a pas encore fini de jouer, attend un petit peu et met lui la pression pour qu\'il finisse rapidement.</string>
     <string name="title_activity_game5">Game5Activity</string>
     <string name="title_game5">Biosécurité\n</string>
+    <string name="dialog_rules_game5">Tu rentre de sortie sur le terrain et tu dois faire ta bio-sécurité pour ne pas contaminer la réserve. Choisis l\'outil adapté pour nettoyer.</string>
+    <string name="dialog_end_game5">Le jeu est fini. Tu as mit %1$s millisecondes pour faire ta Bio-sécurité. Clique sur le bouton pour passer au jeu suivant.</string>
+
 </resources>
