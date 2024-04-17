@@ -153,7 +153,7 @@ class Game2Activity : ComponentActivity(),
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        //super.onBackPressed()
+        timestampStart -= 10000 //To prevent cheating
         gameEnd()
     }
 

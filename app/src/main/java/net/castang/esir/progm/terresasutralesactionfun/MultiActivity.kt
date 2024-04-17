@@ -332,8 +332,9 @@ class MultiActivity : ComponentActivity() {
             Game1Activity::class.java,
             Game2Activity::class.java,
             Game3Activity::class.java,
-            Game4Activity::class.java
-            )
+            Game4Activity::class.java,
+            Game5Activity::class.java
+        )
         for (i in 1..numberOfGames){
             var activity : Class<out ComponentActivity>
             do {

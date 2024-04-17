@@ -13,6 +13,7 @@
 
 package net.castang.esir.progm.terresasutralesactionfun
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
@@ -26,23 +27,18 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Random
 
-
-
 class Game5Activity : AppCompatActivity() {
     private lateinit var layout: RelativeLayout
     private lateinit var selectedToolImageView: ImageView
-    private var selectedTool: Int = R.drawable.bross // Par défaut, la brosse est sélectionnée
+    private var selectedTool: Int = R.drawable.bross // By defualt, use bross
     private var timestampStart : Long = 0
     private var dX: Float = 0f
     private var dY: Float = 0f
     private var numDirts = 20 //Can be change later
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game5)
-        timestampStart = System.currentTimeMillis()
-
 
         layout = findViewById(R.id.layout)
         selectedToolImageView = findViewById(R.id.selectedToolImageView)
@@ -55,26 +51,39 @@ class Game5Activity : AppCompatActivity() {
             selectedToolImageView.setImageResource(selectedTool)
 
         }
-
         brosseButton.setOnClickListener {
             selectedTool = R.drawable.bross
             selectedToolImageView.setImageResource(selectedTool)
         }
-
         selectedToolImageView.setOnTouchListener { view, event ->
             handleToolTouch(view, event)
             true
         }
+
+        //Show rules of the game to user
+        MaterialAlertDialogBuilder(this)
+            .setTitle(resources.getString(R.string.title_game5))
+            .setMessage(resources.getString(R.string.dialog_rules_game5))
+            .setNeutralButton(resources.getString(R.string.button_go)) { dialog, which ->
+                //Launch game when user click
+                timestampStart = System.currentTimeMillis()
+                dialog.dismiss()
+                generateDirt()
+            }
+            .show()
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
+    /*override fun onWindowFocusChanged(hasFocus: Boolean) {
+        //Just after onCreate(), needed to be sure screen is OK
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) {
             generateDirt()
         }
     }
+     */
 
     private fun generateDirt() {
+        //Generate a random quantity of each type of dirt
         val random = Random()
         for (i in 0 until numDirts) {
             val dirtImageView = ImageView(this)
@@ -89,13 +98,13 @@ class Game5Activity : AppCompatActivity() {
             layout.addView(dirtImageView)
         }
     }
-
     private fun dpToPx(dp: Int): Int {
         val density = resources.displayMetrics.density
         return (dp * density).toInt()
     }
 
     private fun isViewOverlapping(x: Int, y: Int, view1: View, view2: View): Boolean {
+        //Used to detect the tool tocuh the dirt
         val rect1 = Rect()
         view1.getGlobalVisibleRect(rect1)
         val rect2 = Rect()
@@ -104,6 +113,7 @@ class Game5Activity : AppCompatActivity() {
     }
 
     private fun handleToolTouch(view: View, event: MotionEvent) {
+        //The main game function
         onTouchEvent(event)
         val layoutParams = view.layoutParams as RelativeLayout.LayoutParams
         when (event.actionMasked) {
@@ -160,6 +170,12 @@ class Game5Activity : AppCompatActivity() {
                 }
                 .show()
         }
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        timestampStart -= 10000 //To prevent cheating
+        gameEnd()
     }
 
 }

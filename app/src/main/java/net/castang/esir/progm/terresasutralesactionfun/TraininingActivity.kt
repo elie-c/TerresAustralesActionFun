@@ -18,13 +18,6 @@ class TraininingActivity : ComponentActivity() {
 
     private lateinit var auth: FirebaseAuth
 
-    //Store highScore
-    private var ScoreGame1Activity = 0
-    private var ScoreGame2Activity = 0
-    private var ScoreGame3Activity = 0
-    private var ScoreGame4Activity = 0
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_training)
@@ -36,7 +29,7 @@ class TraininingActivity : ComponentActivity() {
         val db = Firebase.firestore
         if (user != null) {
             // User is signed in
-            for (i in 1..4){
+            for (i in 1..5){
                 val activityName = "Game"+i.toString()+"Activity"
                 readScore(activityName) { score ->
                     val viewName = "textViewScore" + activityName

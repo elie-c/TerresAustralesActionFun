@@ -19,7 +19,8 @@ class SoloActivity : ComponentActivity() {
             Game1Activity::class.java,
             Game2Activity::class.java,
             Game3Activity::class.java,
-            Game4Activity::class.java
+            Game4Activity::class.java,
+            Game5Activity::class.java
         )
         val activitiesToLaunch : MutableList<Class<out ComponentActivity>> = mutableListOf()
 

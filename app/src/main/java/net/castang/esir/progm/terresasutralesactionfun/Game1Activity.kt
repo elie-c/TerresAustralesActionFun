@@ -111,7 +111,7 @@ class Game1Activity : ComponentActivity() {
 
 
     fun gameProcess() {
-        val numberOfQuestion = 2 //Can be change later
+        val numberOfQuestion = 3 //Can be change later
         val timePerQuestion : Long = 15 //Can be change later
         var i = 0
         //show first question
