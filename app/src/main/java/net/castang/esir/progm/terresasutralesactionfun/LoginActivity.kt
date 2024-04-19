@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
@@ -64,48 +65,25 @@ class LoginActivity : Activity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext,
-                        "Authentication failed.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                    updateUI(null)
+                    makeAlertDialog(getString(R.string.title_error),getString(R.string.create_error),true)
                 }
             }
         // [END create_user_with_email]
     }
 
     private fun signIn(email: CharSequence, password: CharSequence) {
-        // [START sign_in_with_email]
         auth.signInWithEmailAndPassword(email.toString(), password.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext,
-                        "Authentication failed.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                    updateUI(null)
+                    makeAlertDialog(getString(R.string.title_error),getString(R.string.authError),true)
                 }
             }
-        // [END sign_in_with_email]
-    }
-
-    private fun sendEmailVerification() {
-        // [START send_email_verification]
-        val user = auth.currentUser!!
-        user.sendEmailVerification()
-            .addOnCompleteListener(this) { task ->
-                // Email Verification sent
-            }
-        // [END send_email_verification]
     }
 
     private fun updateUI(user: FirebaseUser?) {
@@ -130,20 +108,52 @@ class LoginActivity : Activity() {
     }
 
     fun signInButton(view: View) {
-        val email = findViewById<TextView>(R.id.editTextLogin).text
-        val password = findViewById<TextView>(R.id.editTextTextPassword).text
-        signIn(email,password)
+        val emailTextView = findViewById<TextView>(R.id.editTextLogin)
+        val passwordTextView = findViewById<TextView>(R.id.editTextTextPassword)
+
+        val email = emailTextView.text.toString()
+        val password = passwordTextView.text.toString()
+
+        if (isValidEmail(email) && isNotEmpty(password)) {
+            signIn(email, password)
+        } else {
+            makeAlertDialog(getString(R.string.title_error),getString(R.string.messsage_error_email_or_password),true)
+        }
     }
 
-    fun signOutButton(view: View) {
-        val email = findViewById<TextView>(R.id.editTextLogin).text.toString()
-        val password = findViewById<TextView>(R.id.editTextTextPassword).text
-        Log.d("DEV-email",email.toString())
-        Log.d("DEV-pass",password.toString())
+    fun createAccountButton(view: View) {
+        val emailTextView = findViewById<TextView>(R.id.editTextLogin)
+        val passwordTextView = findViewById<TextView>(R.id.editTextTextPassword)
 
-        createAccount(email,password)
+        val email = emailTextView.text.toString()
+        val password = passwordTextView.text.toString()
+
+        if (isValidEmail(email) && isNotEmpty(password)) {
+            createAccount(email,password)
+        } else {
+            makeAlertDialog(getString(R.string.title_error),getString(R.string.messsage_error_email_or_password),true)
+        }
     }
 
+    fun forgotPasswordButton(view: View) {
+        val emailTextView = findViewById<TextView>(R.id.editTextLogin)
+        val email = emailTextView.text.toString()
+
+        if (isValidEmail(email)) {
+            auth.sendPasswordResetEmail(email)
+            makeAlertDialog(getString(R.string.title_done),getString(R.string.messsage_reset_email_sent),true)
+        } else {
+            makeAlertDialog(getString(R.string.title_error),getString(R.string.messsage_error_emai),true)
+        }
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun isNotEmpty(str: String): Boolean {
+        return str.isNotEmpty()
+    }
     fun validateSettings(view: View) {
         val user = Firebase.auth.currentUser
         val profileUpdates = userProfileChangeRequest {
@@ -170,4 +180,16 @@ class LoginActivity : Activity() {
         startActivity(intent,)
         super.onBackPressed()
     }
+
+    private fun makeAlertDialog(title : String,message : String, cancelable : Boolean){
+        runOnUiThread(){
+            MaterialAlertDialogBuilder(this@LoginActivity)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(cancelable)
+                .show()
+        }
+    }
+
+
 }

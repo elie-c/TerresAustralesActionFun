@@ -456,7 +456,6 @@ class MultiActivity : ComponentActivity() {
     private fun makeAlertDialog(title : String,message : String, cancelable : Boolean){
         runOnUiThread(){
             MaterialAlertDialogBuilder(this@MultiActivity)
-                .setCancelable(false)
                 .setTitle(title)
                 .setMessage(message)
                 .setCancelable(cancelable)
