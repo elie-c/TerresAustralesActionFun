@@ -45,6 +45,11 @@
         android:theme="@style/Theme.TerresAsutralesActionFun"
         tools:targetApi="31">
         <activity
+            android:name=".Game6Activity"
+            android:exported="false"
+            android:label="@string/title_activity_game6"
+            android:theme="@style/Theme.TerresAsutralesActionFun" />
+        <activity
             android:name=".Game5Activity"
             android:exported="false"
             android:label="@string/title_activity_game5"

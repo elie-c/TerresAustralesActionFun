@@ -96,5 +96,10 @@
     <string name="title_done">C\'est fait !</string>
     <string name="messsage_reset_email_sent">Nous venons de t\'envoyer un e-mail pour que tu récupères ton mot de passe. Enfin, si ton compte existe bel est bien.</string>
     <string name="help_login">Avec un compte tu pourras enregistrer tes meilleurs scores sur le cloud !\n Nous ne ferons rien de tes données personnelles (même pas une newsletter !)</string>
+    <string name="title_activity_game6">Game6Activity</string>
+    <string name="title_game6">Transit à haut risque</string>
+    <string name="dialog_end_game6">Le jeu est fini. Tu as survécu pendant %1$s millisecondes lors de ce transit. Clique sur le bouton pour passer au jeu suivant.</string>
+    <string name="dialog_rules_game6">TODO</string>
+
 
 </resources>

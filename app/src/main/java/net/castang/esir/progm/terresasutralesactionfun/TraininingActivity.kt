@@ -29,8 +29,8 @@ class TraininingActivity : ComponentActivity() {
         val db = Firebase.firestore
         if (user != null) {
             // User is signed in
-            for (i in 1..5){
-                val activityName = "Game"+i.toString()+"Activity"
+            for (i in 1..5) {
+                val activityName = "Game" + i.toString() + "Activity"
                 readScore(activityName) { score ->
                     val viewName = "textViewScore" + activityName
                     val resId: Long = resources.getIdentifier(viewName, "id", packageName).toLong()
@@ -43,29 +43,35 @@ class TraininingActivity : ComponentActivity() {
         }
         super.onResume()
     }
+
     fun go_game1(view: View) {
         val intent = Intent(this, Game1Activity::class.java)
-        startActivityForResult(intent,1)
+        startActivityForResult(intent, 1)
     }
 
     fun go_game2(view: View) {
         val intent = Intent(this, Game2Activity::class.java)
-        startActivityForResult(intent,1)
+        startActivityForResult(intent, 1)
     }
 
     fun go_game3(view: View) {
         val intent = Intent(this, Game3Activity::class.java)
-        startActivityForResult(intent,1)
+        startActivityForResult(intent, 1)
     }
 
     fun go_game4(view: View) {
         val intent = Intent(this, Game4Activity::class.java)
-        startActivityForResult(intent,1)
+        startActivityForResult(intent, 1)
     }
 
     fun go_game5(view: View) {
         val intent = Intent(this, Game5Activity::class.java)
-        startActivityForResult(intent,1)
+        startActivityForResult(intent, 1)
+    }
+
+    fun go_game6(view: View) {
+        val intent = Intent(this, Game6Activity::class.java)
+        startActivityForResult(intent, 1)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -83,10 +89,10 @@ class TraininingActivity : ComponentActivity() {
         }
     }
 
-    private fun writeScore(score: Int,activity : String){
+    private fun writeScore(score: Int, activity: String) {
         val user = Firebase.auth.currentUser
         val db = Firebase.firestore
-        var varName = "Score"+activity
+        var varName = "Score" + activity
         if (user != null) {
             // User is signed in
             user?.uid?.let { userId ->
@@ -135,5 +141,6 @@ class TraininingActivity : ComponentActivity() {
         startActivity(intent,)
         super.onBackPressed()
     }
-
 }
+
+
