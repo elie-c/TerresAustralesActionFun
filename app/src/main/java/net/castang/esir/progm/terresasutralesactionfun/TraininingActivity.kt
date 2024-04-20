@@ -29,7 +29,7 @@ class TraininingActivity : ComponentActivity() {
         val db = Firebase.firestore
         if (user != null) {
             // User is signed in
-            for (i in 1..5) {
+            for (i in 1..6) {
                 val activityName = "Game" + i.toString() + "Activity"
                 readScore(activityName) { score ->
                     val viewName = "textViewScore" + activityName

@@ -99,7 +99,7 @@
     <string name="title_activity_game6">Game6Activity</string>
     <string name="title_game6">Transit à haut risque</string>
     <string name="dialog_end_game6">Le jeu est fini. Tu as survécu pendant %1$s millisecondes lors de ce transit. Clique sur le bouton pour passer au jeu suivant.</string>
-    <string name="dialog_rules_game6">TODO</string>
+    <string name="dialog_rules_game6">Tu es en transit vers un site isolé de la base. Fais attention aux obstacles sur la route, comme les éléphants de mer ou les souilles ! Incline ton téléphone pour faire bouger ton personnage.</string>
 
 
 </resources>
