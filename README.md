@@ -11,9 +11,9 @@ Le jeu comprend six mini-jeux différents :
 
 2. **Jeu de montée des couleurs** : Défiez votre réactivité en tapotant deux fois pour faire monter les couleurs.
 
-3. **Jeu de base étoilée** : Utilisez le capteur de luminosité pour naviguer dans une base étoilée.
+3. **Jeu de base étoilée** : Utilisez le capteur de luminosité pour l'opération base étoilée.
 
-4. **Jeu de chasse au pétrel** : Cliquez sur les pétrels pour les attraper et marquer des points.
+4. **Jeu de chasse et pétrel** : Cliquez sur les chats pour les attraper et marquer des points.
 
 5. **Jeu de biosécurité** : Déplacez des objets pour maintenir la biosécurité de l'environnement.
 
@@ -30,4 +30,5 @@ _Remarque :_ Les trois derniers jeux ont été principalement codés par ChatGPT
 - Stockage des scores via Firebase : Sauvegardez vos scores et comparez-les avec d'autres joueurs.
 - Pubilcation sur le PlayStore (en cours)
 
-<!-- README généré par ChatGPT -->
+
+> README généré par ChatGPT
