@@ -1,6 +1,6 @@
 # Terres Australes Action Fun
 
-Ce projet a été réalisé dans le cadre du cours de Johann Bourcier [https://sites.google.com/site/johannbourcier/teaching-1/progse]. 
+Ce projet a été réalisé dans le cadre du [cours de Johann Bourcier](https://sites.google.com/site/johannbourcier/teaching-1/progse). 
 "Terres Australes Action Fun" est un jeu qui explore le thème des Terres Australes et Antarctiques Françaises, inspiré par l'expérience personnelle de l'auteur lors d'une récente césure aux îles Kerguelen.
 
 ## Fonctionnalités
