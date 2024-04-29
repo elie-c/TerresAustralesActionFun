@@ -10,15 +10,15 @@
         android:id="@+id/constraintLayoutForSettings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="-226dp">
 
         <TextView
             android:id="@+id/textViewTitile"
             android:layout_width="194dp"
-            android:layout_height="88dp"
-            android:layout_margin="40dp"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/title_settings"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
@@ -29,7 +29,7 @@
         <TextView
             android:id="@+id/textViewHelpName"
             android:layout_width="194dp"
-            android:layout_height="88dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/help_name"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
@@ -62,16 +62,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitile" />
 
+        <TextView
+            android:id="@+id/textViewHelpFlagPicker"
+            android:layout_width="194dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/help_flag"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonValidate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="30dp"
             android:onClick="validateSettings"
             android:text="@string/button_validate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutFlagPicker" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonLogOut"
@@ -85,6 +98,49 @@
             app:layout_constraintHorizontal_bias="0.169"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleGroupFlagPicker"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="52dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHelpFlagPicker"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/flag"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/IconOnlyButton"
+                android:foreground="@drawable/flag"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/flag_bzh"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/IconOnlyButton"
+                android:foreground="@drawable/flag_bzh"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/flag_lgbt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/IconOnlyButton"
+                android:foreground="@drawable/flag_lgbt"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/flag_vatican"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/IconOnlyButton"
+                android:foreground="@drawable/flag_vatican"
+                />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

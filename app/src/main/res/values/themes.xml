@@ -18,4 +18,9 @@
         <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox
         </item> <!-- Changed the style reference to reflect Material3 -->
     </style>
+
+    <style name="IconOnlyButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+    </style>
 </resources>

@@ -9,28 +9,31 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
-import com.google.firebase.Firebase
 import com.google.firebase.auth.userProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 class LoginActivity : Activity() {
 
     // [START declare_auth]
     private lateinit var auth: FirebaseAuth
+    private lateinit var db : FirebaseFirestore
     // [END declare_auth]
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // [START initialize_auth]
         // Initialize Firebase Auth
         auth = Firebase.auth
-        // [END initialize_auth]
-
+        db = Firebase.firestore
         val user = Firebase.auth.currentUser
         if (user != null) {
             // User is signed in
@@ -97,6 +100,21 @@ class LoginActivity : Activity() {
             findViewById<EditText>(R.id.editTextName).setText(name)
             findViewById<TextView>(R.id.textViewEmail).text = email
         }
+        var flagName = "flag" //Set default
+        if (user != null) {
+            db.collection("users")
+                .document(user.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    val varName = "Flag"
+                    if (document != null && document.data?.contains(varName) == true) {
+                        flagName = document.data!![varName].toString()
+                    }
+                }
+        }
+        //TODO
+        //val idFlagChecked = resources.getIdentifier()
+        //findViewById<MaterialButtonToggleGroup>(R.id.toggleGroupFlagPicker).checkedButtonId=
 
     }
 
@@ -155,7 +173,16 @@ class LoginActivity : Activity() {
         return str.isNotEmpty()
     }
     fun validateSettings(view: View) {
+        //Get selected flag
+        val grpFlag = findViewById<MaterialButtonToggleGroup>(R.id.toggleGroupFlagPicker)
+        val flagId = grpFlag.checkedButtonId
+        val flagResName = resources.getResourceEntryName(flagId)
+        //Save to Firesore
         val user = Firebase.auth.currentUser
+
+
+        //Update usename in FireAuth
+
         val profileUpdates = userProfileChangeRequest {
             displayName = findViewById<EditText>(R.id.editTextName).text.toString()
         }
@@ -177,7 +204,7 @@ class LoginActivity : Activity() {
 
     override fun onBackPressed() {
         val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent,)
+        startActivity(intent)
         super.onBackPressed()
     }
 
