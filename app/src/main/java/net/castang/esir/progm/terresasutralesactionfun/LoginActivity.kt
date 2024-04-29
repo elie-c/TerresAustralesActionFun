@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 
 class LoginActivity : Activity() {
@@ -100,7 +101,6 @@ class LoginActivity : Activity() {
             findViewById<EditText>(R.id.editTextName).setText(name)
             findViewById<TextView>(R.id.textViewEmail).text = email
         }
-        var flagName = "flag" //Set default
         if (user != null) {
             db.collection("users")
                 .document(user.uid)
@@ -108,14 +108,12 @@ class LoginActivity : Activity() {
                 .addOnSuccessListener { document ->
                     val varName = "Flag"
                     if (document != null && document.data?.contains(varName) == true) {
-                        flagName = document.data!![varName].toString()
+                        val flagName = document.data!![varName].toString()
+                        val resId = resources.getIdentifier(flagName, "id", packageName)
+                        findViewById<MaterialButtonToggleGroup>(R.id.toggleGroupFlagPicker).check(resId)
                     }
                 }
         }
-        //TODO
-        //val idFlagChecked = resources.getIdentifier()
-        //findViewById<MaterialButtonToggleGroup>(R.id.toggleGroupFlagPicker).checkedButtonId=
-
     }
 
     private fun reload() {
@@ -176,13 +174,24 @@ class LoginActivity : Activity() {
         //Get selected flag
         val grpFlag = findViewById<MaterialButtonToggleGroup>(R.id.toggleGroupFlagPicker)
         val flagId = grpFlag.checkedButtonId
-        val flagResName = resources.getResourceEntryName(flagId)
+        val flagName = resources.getResourceEntryName(flagId)
         //Save to Firesore
         val user = Firebase.auth.currentUser
-
-
+        if (user != null) {
+            // User is signed in
+            user?.uid?.let { userId ->
+                val user = hashMapOf(
+                    "user" to userId,
+                    "Flag" to flagName
+                )
+                db.collection("users")
+                    .document(userId)
+                    .set(user, SetOptions.merge())
+                    .addOnSuccessListener { documentReference ->
+                    }
+            }
+        }
         //Update usename in FireAuth
-
         val profileUpdates = userProfileChangeRequest {
             displayName = findViewById<EditText>(R.id.editTextName).text.toString()
         }

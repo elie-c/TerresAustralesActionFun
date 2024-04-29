@@ -6,25 +6,39 @@ import android.os.Bundle
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.activity.ComponentActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GestureDetectorCompat
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 
 class Game2Activity : ComponentActivity(),
     GestureDetector.OnGestureListener,
     GestureDetector.OnDoubleTapListener {
+
     lateinit var imageViewFlag: ImageView
     var topOfMast = 0
     var bottomOfMast = 0
     var timestampStart : Long = 0
     private lateinit var mDetector: GestureDetectorCompat
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db : FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game2)
+
+
 
         //Place flag at the bootom of the mast
         val imageViewMast = findViewById<ImageView>(R.id.imageViewMast)
@@ -53,6 +67,27 @@ class Game2Activity : ComponentActivity(),
                 imageViewMast.viewTreeObserver.removeOnGlobalLayoutListener(this)
             }
         })
+
+        // Initialize Firebase Auth and change flag if needed
+        auth = Firebase.auth
+        db = Firebase.firestore
+        val user = Firebase.auth.currentUser
+        if (user != null) {
+            // User is signed in
+            db.collection("users")
+                .document(user.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    val varName = "Flag"
+                    if (document != null && document.data?.contains(varName) == true) {
+                        val flagName = document.data!![varName].toString()
+                        val resId = resources.getIdentifier(flagName, "drawable", packageName)
+                        val res = resources.getDrawable(resId)
+                        imageViewFlag.setImageDrawable(res)
+                    }
+                }
+        }
+
         //Show rules of the game to user
         MaterialAlertDialogBuilder(this)
             .setTitle(resources.getString(R.string.title_game2))

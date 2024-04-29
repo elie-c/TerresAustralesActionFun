@@ -60,10 +60,6 @@
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.TerresAsutralesActionFun" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_settings" />
-        <activity
             android:name=".Game4Activity"
             android:exported="false"
             android:label="@string/title_activity_game4"
@@ -105,7 +101,6 @@
             android:theme="@style/Theme.TerresAsutralesActionFun">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
