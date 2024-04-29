@@ -103,7 +103,7 @@ class Game4Activity : ComponentActivity() {
         if (gameRunning) {
             val character = ImageView(this)
             val isCat = random.nextBoolean()
-            character.setImageResource(if (isCat) R.drawable.chat else R.drawable.petrel)
+            character.setImageResource(if (isCat) R.drawable.cat else R.drawable.petrel)
 
             // Réduire la taille des personnages
             character.layoutParams = ViewGroup.LayoutParams(100, 100) // Ajustez la taille selon vos besoins

@@ -31,7 +31,7 @@ import java.util.Random
 class Game5Activity : AppCompatActivity() {
     private lateinit var layout: RelativeLayout
     private lateinit var selectedToolImageView: ImageView
-    private var selectedTool: Int = R.drawable.bross // By defualt, use bross
+    private var selectedTool: Int = R.drawable.brush // By defualt, use bross
     private var timestampStart : Long = 0
     private var dX: Float = 0f
     private var dY: Float = 0f
@@ -54,7 +54,7 @@ class Game5Activity : AppCompatActivity() {
 
         }
         brosseButton.setOnClickListener {
-            selectedTool = R.drawable.bross
+            selectedTool = R.drawable.brush
             selectedToolImageView.setImageResource(selectedTool)
         }
         selectedToolImageView.setOnTouchListener { view, event ->
@@ -138,7 +138,7 @@ class Game5Activity : AppCompatActivity() {
                         if (childView is ImageView && childView.drawable != null) {
                             if (isViewOverlapping(view.x.toInt(), view.y.toInt(), childView, selectedToolImageView)) {
                                 val childDrawable = childView.drawable
-                                if ((selectedTool == R.drawable.bross && childDrawable.constantState == resources.getDrawable(R.drawable.stain)?.constantState) ||
+                                if ((selectedTool == R.drawable.brush && childDrawable.constantState == resources.getDrawable(R.drawable.stain)?.constantState) ||
                                     (selectedTool == R.drawable.vacuum && childDrawable.constantState == resources.getDrawable(R.drawable.seeds)?.constantState)) {
                                     layout.removeView(childView)
                                     numDirts --
