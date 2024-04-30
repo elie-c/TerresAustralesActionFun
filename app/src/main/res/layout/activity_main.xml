@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_main"
+        android:scaleType="centerCrop"
+        android:layout_gravity="fill"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,13 +23,16 @@
         android:padding="24dp"
         android:paddingTop="16dp">
 
+
+
+
         <ImageView
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="48dp"
             android:layout_marginBottom="16dp"
-            android:src="@mipmap/logo_temp_round"/>
+            android:src="@mipmap/logo_temp_round" />
 
 
         <TextView
@@ -30,15 +40,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="70dp"
             android:text="@string/titile_welcome_guest"
-            android:textAppearance="?attr/textAppearanceTitleLarge"
-            android:layout_marginBottom="70dp"/>
+            android:textAppearance="?attr/textAppearanceTitleLarge" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/help_main"
-            android:textAppearance="?attr/textAppearanceTitleMedium"/>
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -47,32 +58,30 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:text="@string/button_solo"
             android:onClick="go_solo"
-            />
+            android:text="@string/button_solo" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_training"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/button_training"
             android:onClick="go_training"
-            />
+            android:text="@string/button_training" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_multi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/button_multi"
             android:onClick="go_multi"
-            />
+            android:text="@string/button_multi" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="60dp">
+            android:layout_marginTop="60dp"
+            android:orientation="horizontal">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/goSettings"
@@ -82,10 +91,12 @@
                 android:layout_marginBottom="16dp"
                 android:onClick="goToSettings"
                 android:saveEnabled="false"
+                android:backgroundTint="@color/white"
                 app:ensureMinTouchTargetSize="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_preferences" />
+                app:srcCompat="@android:drawable/ic_menu_preferences"
+                android:contentDescription="@string/title_activity_settings" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/goFaq"
@@ -95,10 +106,12 @@
                 android:layout_marginBottom="16dp"
                 android:onClick="goToFaq"
                 android:saveEnabled="false"
+                app:backgroundTint="@color/white"
                 app:ensureMinTouchTargetSize="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_info_details" />
+                app:srcCompat="@android:drawable/ic_menu_info_details"
+                android:contentDescription="@string/title_activity_faq" />
 
 
         </LinearLayout>
@@ -107,4 +120,4 @@
     </LinearLayout>
 
 
-</ScrollView>
+</FrameLayout>
