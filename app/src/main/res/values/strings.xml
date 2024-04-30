@@ -1,63 +1,48 @@
 <resources>
     <string name="app_name">Terres Australes Action Fun</string>
     <string name="app_name_short">TAAF</string>
-    <string name="help_main">Choisis ton mode de jeu ci-desous</string>
-    <string name="button_solo">Defi seul</string>
-    <string name="button_training">Mode etrainement\n</string>
-    <string name="button_multi">Defi multijoueur\n</string>
-    <string name="title_activity_trainining">TraininingActivity</string>
-    <string name="help_training">Choisis ton mini-jeu ci-dessous\n</string>
-    <string name="title_game1">Quizz historique\n</string>
+    <string name="help_main">Choisis ton mode de jeu ci-dessous</string>
+    <string name="button_solo">Défi seul</string>
+    <string name="button_training">Mode entraînement</string>
+    <string name="button_multi">Défi multijoueur</string>
+    <string name="title_activity_trainining">TrainingActivity</string>
+    <string name="help_training">Choisis ton mini-jeu ci-dessous</string>
+    <string name="title_game1">Quizz historique</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="toast_comming_soon">Bientôt disponible</string>
     <string name="title_activity_game1">Game1Activity</string>
-    <string name="dialog_rules_game1">Dans ce jeu tu vas devoir donner la bonne date pour un événement historique</string>
+    <string name="dialog_rules_game1">Dans ce jeu, tu vas devoir donner la bonne date pour un événement historique</string>
     <string name="button_go">C\'est parti !</string>
     <string name="button_validate">Valider</string>
-    <string name="title_wait">Attend\n</string>
-    <string name="dialog_wait_question">La prochaine question arrive très bientôt, soit prêt</string>
-    <string name="dialog_good_answer_wait">Tu as trouvé la bonne réponse ! La prochaine question arrive très bientôt, soit prêt</string>
-    <string name="dialog_bad_answer_wait">Tu n\'as pas trouvé la bonne réponse. La prochaine question arrive très bientôt, soit prêt</string>
-    <string name="dialog_end_question_game">Le jeu est terminé. J\'espère que c\'était fun et que tu as appris des choses sur l\'histoire des TAAF. Prêt à passer au jeu suivant ?</string>
+    <string name="title_wait">Attends</string>
+    <string name="dialog_wait_question">La prochaine question arrive très bientôt, sois prêt</string>
+    <string name="dialog_good_answer_wait">Tu as trouvé la bonne réponse ! La prochaine question arrive très bientôt, sois prêt</string>
+    <string name="dialog_bad_answer_wait">Tu n\'as pas trouvé la bonne réponse. La prochaine question arrive très bientôt, sois prêt</string>
+    <string name="dialog_end_question_game">Le jeu est terminé. J\'espère que c\'était amusant et que tu as appris des choses sur l\'histoire des TAAF. Prêt à passer au jeu suivant ?</string>
     <string name="title_end_game">Fin du jeu</string>
     <string name="toast_timeout">Trop tard !</string>
     <string name="title_game2">Montée des couleurs</string>
     <string name="title_activity_game2">Game2Activity</string>
-    <string name="dialog_rules_game2">Aujourd\'hui c\'est toi qui est chargé de monter les couelurs. Appuie sur l\'ecran pour monter le drapeau.</string>
-    <string name="dialog_end_game2">Le jeu est fini. Tu as mit %1$s millisecondes pour monter ce drapeau. Clique sur le bouton pour passer au jeu suivant.</string>
+    <string name="dialog_rules_game2">Aujourd\'hui, c\'est à toi de monter les couleurs. Appuie sur l\'écran pour monter le drapeau.</string>
+    <string name="dialog_end_game2">Le jeu est fini. Tu as mis %1$s millisecondes pour monter ce drapeau. Clique sur le bouton pour passer au jeu suivant.</string>
     <string name="title_game3">Base étoilée</string>
     <string name="title_activity_game3">Game3Activity</string>
-    <string name="dialog_rules_game3">C\'est l\'opération base étoilée. Celà veut dire qu\'il faut éviter toutes sources lumineuses sur la base, sinon les jeunes oiseux risquent de s\'échouer. Tu ne voudrais pas avoir la mort d\'un bébé pétrel sur la conscience ? Alors tu as 3 secondes pour mettre ton téléphone le plus possible dans l\'obscurité !</string>
+    <string name="dialog_rules_game3">C\'est l\'opération base étoilée. Cela veut dire qu\'il faut éviter toutes sources lumineuses sur la base, sinon les jeunes oiseaux risquent de s\'échouer. Tu ne voudrais pas avoir la mort d\'un bébé pétrel sur la conscience ? Alors tu as 3 secondes pour mettre ton téléphone le plus possible dans l\'obscurité !</string>
     <string name="dialog_end_game3">Le jeu est fini. Tu as réussi à mettre ton téléphone dans une obscurité de %1$s lux. Clique sur le bouton pour passer au jeu suivant.</string>
     <string name="title_activity_solo">SoloActivity</string>
-    <string name="dialog_end_solo">Le mode solo est fini. Tu as un score total de %1$s points. Reviens vite!</string>
-    <string name="button_seeyou">A bientôt !</string>
+    <string name="dialog_end_solo">Le mode solo est fini. Tu as un score total de %1$s points. Reviens vite !</string>
+    <string name="button_seeyou">À bientôt !</string>
     <string name="title_activity_multi">MultiActivity</string>
     <string name="button_discover">Rechercher une partie</string>
-    <string name="button_stopDiscover">Arreter la recherche</string>
+    <string name="button_stopDiscover">Arrêter la recherche</string>
     <string name="button_makeMeDiscoverable">Héberger une partie</string>
     <string name="title_listDevices">Liste des appareils disponibles\n</string>
     <string name="toast_connection_error">Connexion impossible\n</string>
     <string name="title_game4">Chasse et pétrel</string>
     <string name="title_activity_game4">Game4Activity</string>
     <string name="dialog_end_game4">Le jeu est fini. Tu as obtenu un score de %1$s. Clique sur le bouton pour passer au jeu suivant.</string>
-    <string name="dialog_rules_game4">Tu es agent en charge de la gestion des mamifères introduits. Tu vas devoir tuer les méchants chats mangeur d\'oiseaux. Fais attention à ne pas toucher un oiseau, sinon tu perd des points (ils sont protégés eux !).</string>
+    <string name="dialog_rules_game4">Tu es agent en charge de la gestion des mammifères introduits. Tu vas devoir tuer les méchants chats mangeurs d\'oiseaux. Fais attention à ne pas toucher un oiseau, sinon tu perds des points (ils sont protégés eux !).</string>
     <string name="title_activity_settings">SettingsActivity</string>
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_appearance">Apparence</string>
     <string name="switchForceDarkMode">Forcer le mode sombre</string>
     <string name="title_utilisateur">Utilisateur</string>
@@ -75,37 +60,37 @@
     <string name="titile_welcome_guest">Bienvenue invité.e !</string>
     <string name="titile_welcome_user">"Content de te revoir %1$s !"</string>
     <string name="score">Score : %1$s </string>
-    <string name="title_connection_ok">Connexion réussite !</string>
-    <string name="messsage_connection_ok">La connexion avec %1$s est réussite ! Tiens toi prêt pour la suite.</string>
+    <string name="title_connection_ok">Connexion réussie !</string>
+    <string name="messsage_connection_ok">La connexion avec %1$s est réussie ! Tiens-toi prêt pour la suite.</string>
     <string name="dialog_end_games_win">Tu as gagné cette partie avec %1$s points pour toi, alors que ton adversaire n\'a eu que %2$s points. Reviens jouer très bientôt !</string>
-    <string name="titile_end_game_win">Féliciations !</string>
-    <string name="dialog_end_games_loose">Tu as perdu cette partie avec %1$s points pour toi, alors que ton adversaire a eu %2$s points. Tu devrais tester le mode entrainement !</string>
+    <string name="titile_end_game_win">Félicitations !</string>
+    <string name="dialog_end_games_loose">Tu as perdu cette partie avec %1$s points pour toi, alors que ton adversaire a eu %2$s points. Tu devrais tester le mode entraînement !</string>
     <string name="titile_end_game_loose">Ho zut !</string>
-    <string name="dialog_wait_BT">Ton adversaire n\'a pas encore fini de jouer, attend un petit peu et met lui la pression pour qu\'il finisse rapidement.</string>
+    <string name="dialog_wait_BT">Ton adversaire n\'a pas encore fini de jouer, attends un petit peu et mets-lui la pression pour qu\'il finisse rapidement.</string>
     <string name="title_activity_game5">Game5Activity</string>
     <string name="title_game5">Biosécurité\n</string>
-    <string name="dialog_rules_game5">Tu rentre de sortie sur le terrain et tu dois faire ta bio-sécurité pour ne pas contaminer la réserve. Choisis l\'outil adapté pour nettoyer.</string>
-    <string name="dialog_end_game5">Le jeu est fini. Tu as mit %1$s millisecondes pour faire ta Bio-sécurité. Clique sur le bouton pour passer au jeu suivant.</string>
+    <string name="dialog_rules_game5">Tu rentres de sortie sur le terrain et tu dois faire ta bio-sécurité pour ne pas contaminer la réserve. Choisis l\'outil adapté pour nettoyer.</string>
+    <string name="dialog_end_game5">Le jeu est fini. Tu as mis %1$s millisecondes pour faire ta Bio-sécurité. Clique sur le bouton pour passer au jeu suivant.</string>
     <string name="title_error">Aïe !</string>
     <string name="messsage_error_email_or_password">Veuillez entrer une adresse e-mail valide et un mot de passe non vide, s\'il vous plaît.</string>
     <string name="help_name">Tu peux changer ton nom/pseudo ci-dessous :</string>
     <string name="button_forgotPassword">J\'ai oublié mon mot de passe</string>
     <string name="messsage_error_emai">Veuillez entrer une adresse e-mail valide\n</string>
-    <string name="authError">Nous n\'avons pas réussi à vous connecter. Peut-être que le mot de passe n\'est pas bon ...\n</string>
-    <string name="create_error">Nous n\'avons pas réussi à créer ton compte. Peut-être qu\'il exsite déjà ...</string>
+    <string name="authError">Nous n\'avons pas réussi à vous connecter. Peut-être que le mot de passe n\'est pas bon …\n</string>
+    <string name="create_error">Nous n\'avons pas réussi à créer ton compte. Peut-être qu\'il existe déjà ...</string>
     <string name="title_done">C\'est fait !</string>
-    <string name="messsage_reset_email_sent">Nous venons de t\'envoyer un e-mail pour que tu récupères ton mot de passe. Enfin, si ton compte existe bel est bien.</string>
-    <string name="help_login">Avec un compte tu pourras enregistrer tes meilleurs scores sur le cloud !\n Nous ne ferons rien de tes données personnelles (même pas une newsletter !)</string>
+    <string name="messsage_reset_email_sent">Nous venons de t\'envoyer un e-mail pour que tu récupères ton mot de passe. Enfin, si ton compte existe bel et bien.</string>
+    <string name="help_login">Avec un compte, tu pourras enregistrer tes meilleurs scores sur le cloud !\n Nous ne ferons rien de tes données personnelles (même pas une newsletter !)</string>
     <string name="title_activity_game6">Game6Activity</string>
     <string name="title_game6">Transit à haut risque</string>
     <string name="dialog_end_game6">Le jeu est fini. Tu as survécu pendant %1$s millisecondes lors de ce transit. Clique sur le bouton pour passer au jeu suivant.</string>
     <string name="dialog_rules_game6">Tu es en transit vers un site isolé de la base. Fais attention aux obstacles sur la route, comme les éléphants de mer ou les souilles ! Incline ton téléphone pour faire bouger ton personnage.</string>
-    <string name="help_flag">Tu peux chosir ton drapeau pour le mini-jeu \"Montée des couleurs\" :</string>
+    <string name="help_flag">Tu peux choisir ton drapeau pour le mini-jeu \"Montée des couleurs\" :</string>
     <string name="title_activity_faq">FaqActivity</string>
     <string name="title_faq">Questions fréquentes</string>
     <string name="faq_q_1">Pourquoi ce jeu ?\n</string>
-    <string name="faq_r_1">Ce jeu a été crée dans le cadre d\'un devoir lors de mes études d\'ingénieur. La thématique des TAAF est dû à ma césure que j\'ai effectué aux îles Kergulen.</string>
-    <string name="faq_q_2">Pourquoi le jeu de quizz historique ?\n</string>
+    <string name="faq_r_1">Ce jeu a été créé dans le cadre d\'un devoir lors de mes études d\'ingénieur. La thématique des TAAF est due à ma césure que j\'ai effectuée aux îles Kerguelen.</string>
+    <string name="faq_q_2">Pourquoi le jeu de quiz historique ?\n</string>
     <string name="faq_r_2">Parce qu\'il est important de connaître les grandes dates de l\'histoire des Terres australes et antarctiques françaises (TAAF).\n</string>
     <string name="faq_q_3">Pourquoi le jeu \"Montée des couleurs\" ?\n</string>
     <string name="faq_r_3">Parce que sur chacun des districts des Terres australes et antarctiques françaises (TAAF), il y a un mât aux couleurs où le drapeau français est monté lors d\'une cérémonie républicaine à chaque grande occasion. À Kerguelen, le vent est tellement important que le drapeau n\'est pas laissé en haut du mât en permanence.\n</string>
@@ -122,7 +107,5 @@
     <string name="faq_q_9">Est-il possible de laisser une bonne note sur le Play Store ?\n</string>
     <string name="faq_r_9">Oui, il est possible de laisser une bonne note sur le Play Store si vous avez apprécié le jeu et que vous souhaitez encourager le développeur.\n</string>
     <string name="faq_q_10">Comment puis-je découvrir les Terres australes et antarctiques françaises (TAAF) en vrai ?\n</string>
-    <string name="faq_r_10">Si vous souhaitez découvrir les TAAF en vrai, vous pouvez postuler à l\'Institut polaire x IFREMER et à la préfecture des TAAF. La plupart des postes ne sont mal rémunérés, mais c\'est une expérience très enrichissante.\n</string>
-
-
+    <string name="faq_r_10">Si vous souhaitez découvrir les TAAF en vrai, vous pouvez postuler à l\'Institut polaire x IFREMER et à la préfecture des TAAF. La plupart des postes sont mal rémunérés, mais c\'est une expérience très enrichissante.\n</string>
 </resources>
