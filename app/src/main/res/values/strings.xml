@@ -101,4 +101,28 @@
     <string name="dialog_end_game6">Le jeu est fini. Tu as survécu pendant %1$s millisecondes lors de ce transit. Clique sur le bouton pour passer au jeu suivant.</string>
     <string name="dialog_rules_game6">Tu es en transit vers un site isolé de la base. Fais attention aux obstacles sur la route, comme les éléphants de mer ou les souilles ! Incline ton téléphone pour faire bouger ton personnage.</string>
     <string name="help_flag">Tu peux chosir ton drapeau pour le mini-jeu \"Montée des couleurs\" :</string>
+    <string name="title_activity_faq">FaqActivity</string>
+    <string name="title_faq">Questions fréquentes</string>
+    <string name="faq_q_1">Pourquoi ce jeu ?\n</string>
+    <string name="faq_r_1">Ce jeu a été crée dans le cadre d\'un devoir lors de mes études d\'ingénieur. La thématique des TAAF est dû à ma césure que j\'ai effectué aux îles Kergulen.</string>
+    <string name="faq_q_2">Pourquoi le jeu de quizz historique ?\n</string>
+    <string name="faq_r_2">Parce qu\'il est important de connaître les grandes dates de l\'histoire des Terres australes et antarctiques françaises (TAAF).\n</string>
+    <string name="faq_q_3">Pourquoi le jeu "Montée des couleurs" ?\n</string>
+    <string name="faq_r_3">Parce que sur chacun des districts des Terres australes et antarctiques françaises (TAAF), il y a un mât aux couleurs où le drapeau français est monté lors d\'une cérémonie républicaine à chaque grande occasion. À Kerguelen, le vent est tellement important que le drapeau n'est pas laissé en haut du mât en permanence.\n</string>
+    <string name="faq_q_4">Pourquoi le jeu \"Base étoilée\" ?\n</string>
+    <string name="faq_r_4">Parce que sur certains districts, il existe de jeunes oiseaux qui se déplacent la nuit pour échapper à leurs prédateurs et se repèrent grâce aux sources lumineuses. Laisser une lumière allumée pourrait entraîner l\'échouage des oiseaux contre ce point lumineux et les mettre en danger.\n</string>
+    <string name="faq_q_5">Pourquoi le jeu \"Chasse et pétrel\" ?\n</string>
+    <string name="faq_r_5">Parce que les chats mangent les pétrels qui sont protégés. Alors la préfecture des TAAF emploie des agents de régulation des mammifères introduits qui ont pour mission de réguler la population de chats à l\'aide de pièges et d\'armes de chasse.\n</string>
+    <string name="faq_q_6">Pourquoi le jeu \"Biosécurité\" ?\n</string>
+    <string name="faq_r_6">Parce que chacun doit aspirer et nettoyer ses affaires pour éviter la contamination des différents sites de la réserve naturelle. Ceci se fait à l\'aide d\'aspirateurs, de brosses et d\'eau.\n</string>
+    <string name="faq_q_7">Pourquoi le jeu \"Transit à haut risque\" ?\n</string>
+    <string name="faq_r_7">Parce que quand on se déplace en dehors de la base pour atteindre un site d\'étude, on se déplace à pied, on parle de transit. C\'est dangereux et il faut éviter les éléphants de mer et les souilles (trous).\n</string>
+    <string name="faq_q_8">Si des développeurs sont intéressés, où peuvent-ils trouver le code source ?\n</string>
+    <string name="faq_r_8">Le code source est disponible sur GitHub de \"elie-c\".\n</string>
+    <string name="faq_q_9">Est-il possible de laisser une bonne note sur le Play Store ?\n</string>
+    <string name="faq_r_9">Oui, il est possible de laisser une bonne note sur le Play Store si vous avez apprécié le jeu et que vous souhaitez encourager le développeur.\n</string>
+    <string name="faq_q_10">Comment puis-je découvrir les Terres australes et antarctiques françaises (TAAF) en vrai ?\n</string>
+    <string name="faq_r_10">Si vous souhaitez découvrir les TAAF en vrai, vous pouvez postuler à l\'Institut polaire x IFREMER et à la préfecture des TAAF. La plupart des postes ne sont mal rémunérés, mais c\'est une expérience très enrichissante.\n</string>
+
+
 </resources>

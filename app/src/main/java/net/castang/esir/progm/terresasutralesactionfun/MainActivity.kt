@@ -54,8 +54,12 @@ class MainActivity: ComponentActivity() {
         startActivity(intent)
     }
     fun goToSettings(view: View) {
-        //val intent = Intent(this, SettingsActivity::class.java)
         val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun goToFaq(view: View) {
+        val intent = Intent(this, FaqActivity::class.java)
         startActivity(intent)
     }
 
