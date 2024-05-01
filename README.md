@@ -27,8 +27,9 @@ _Remarque :_ Les trois derniers jeux ont été principalement codés par ChatGPT
 - Mode de jeu entraînement : Pratiquez individuellement chaque mini-jeu.
 - Mode de jeu multijoueur en Bluetooth : Jouez à trois mini-jeux choisis aléatoirement avec des amis en utilisant la connexion Bluetooth.
 - Authentification via Firebase : Connectez-vous avec votre compte Firebase pour accéder aux fonctionnalités en ligne.
-- Stockage des scores via Firebase : Sauvegardez vos scores et comparez-les avec d'autres joueurs.
-- Pubilcation sur le PlayStore (en cours)
+- Stockage des scores via Firebase : Sauvegardez vos scores et tentez de battre votre record.
+- Stockage des préférences via Firebase : Personnalisez le mini-jeu montée des couleurs.
+- Pubilcation sur le [PlayStore](https://play.google.com/store/apps/details?id=net.castang.esir.progm.terresasutralesactionfun&pcampaignid=web_share)
 
 
 > README généré par ChatGPT
