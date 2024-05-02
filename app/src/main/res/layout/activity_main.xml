@@ -75,7 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:onClick="go_multi"
-            android:text="@string/button_multi" />
+            android:text="@string/button_multi"
+            app:icon="@android:drawable/stat_sys_data_bluetooth" />
 
         <LinearLayout
             android:layout_width="wrap_content"
