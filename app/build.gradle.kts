@@ -12,7 +12,7 @@ android {
         applicationId = "net.castang.esir.progm.terresasutralesactionfun"
         minSdk = 29
         targetSdk = 34
-        versionCode = 4
+        versionCode = 5
         versionName = "Release 5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
