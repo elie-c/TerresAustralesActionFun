@@ -31,7 +31,6 @@ import java.io.IOException
 import java.util.Random
 import java.util.UUID
 
-
 class MultiActivity : ComponentActivity() {
     val numberOfGames = 3
     val scoresListLocal = mutableListOf<Int>()
@@ -52,7 +51,6 @@ class MultiActivity : ComponentActivity() {
     private val activitiesToLaunch : MutableList<Class<out ComponentActivity>> = mutableListOf()
     private var iteratorOfActivitiesToLaunch = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_multi)
@@ -61,20 +59,23 @@ class MultiActivity : ComponentActivity() {
         val bluetoothManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
         bluetoothAdapter = bluetoothManager.getAdapter()
         //Check permission
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.BLUETOOTH_CONNECT
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
+                REQUEST_CODE
+            )
+            return
+        }
+
+        //Activate BT
         if (bluetoothAdapter?.isEnabled == false) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            startActivityForResult(enableBtIntent,REQUEST_CODE)
-            if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.BLUETOOTH_CONNECT
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissions(
-                    arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
-                    REQUEST_CODE
-                )
-                return
-            }
+            startActivity(enableBtIntent)
+            //startActivityForResult(enableBtIntent,REQUEST_CODE)
         }
     }
 
@@ -333,7 +334,8 @@ class MultiActivity : ComponentActivity() {
             Game2Activity::class.java,
             Game3Activity::class.java,
             Game4Activity::class.java,
-            Game5Activity::class.java
+            Game5Activity::class.java,
+            Game6Activity::class.java
         )
         for (i in 1..numberOfGames){
             var activity : Class<out ComponentActivity>

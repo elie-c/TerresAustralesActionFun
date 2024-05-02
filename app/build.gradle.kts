@@ -12,8 +12,8 @@ android {
         applicationId = "net.castang.esir.progm.terresasutralesactionfun"
         minSdk = 29
         targetSdk = 34
-        versionCode = 3
-        versionName = "Alpha 3"
+        versionCode = 4
+        versionName = "Release 5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
